@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const { Resend } = await import("resend");
     const resend = new Resend(apiKey);
 
-    await resend.emails.send({
+    const { data, error: sendError } = await resend.emails.send({
       from: "Formatic Systems <onboarding@resend.dev>",
       to: process.env.CONTACT_EMAIL || "contact@formaticsystems.com",
       replyTo: email,
@@ -31,6 +31,15 @@ export async function POST(request: Request) {
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     });
 
+    if (sendError) {
+      console.error("Resend error:", JSON.stringify(sendError));
+      return NextResponse.json(
+        { error: "Failed to send message" },
+        { status: 500 }
+      );
+    }
+
+    console.log("Email sent successfully:", data?.id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Contact form error:", error);
