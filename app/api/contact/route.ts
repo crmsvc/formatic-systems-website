@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const resend = new Resend(apiKey);
 
     const { data, error: sendError } = await resend.emails.send({
-      from: "Formatic Systems <onboarding@resend.dev>",
+      from: "Formatic Systems <noreply@crmsvc.com>",
       to: process.env.CONTACT_EMAIL || "contact@formaticsystems.com",
       replyTo: email,
       subject: `New contact from ${name}`,
