@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture — Formatic Labs (Preview)</title>
+    <meta name="description" content="A digital petri dish. Roll a seed, cultivate a lifeform, share what emerges. A Formatic Labs preview.">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+        /* ──────────────────────────────────────────────────────────────────
+           FORMATIC THEME TOKENS
+           Swap these to match the live FormaticSystems.com CSS exactly.
+           Everything downstream references these variables.
+        ────────────────────────────────────────────────────────────────── */
+        :root {
+            --amber:      #d97706;   /* single accent — matches live formaticsystems.com brand */
+            --amber-deep: #b45309;   /* accent hover — darker brand amber */
+            --ink:        #1C1C1C;   /* headings / strong */
+            --body:       #33312E;   /* body text */
+            --meta:       #6E6A63;   /* labels / secondary */
+            --line:       #DDD7CC;   /* hairline borders */
+            --tint:       #F5F1E9;   /* low-ink warm fill */
+            --page:       #FFFFFF;   /* white base (ink principle) */
+
+            --sans: "Helvetica Neue", Arial, "Segoe UI", Roboto, system-ui, sans-serif;
+            --serif: Georgia, "Times New Roman", serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--serif);
+            background: var(--page);
+            color: var(--body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .page { max-width: 1280px; margin: 0 auto; padding: 48px 28px 64px; }
+
+        /* ── HERO / INTRO ─────────────────────────────────────────────────── */
+        .hero { max-width: 760px; margin: 0 auto 44px; }
+        .kicker {
+            font-family: var(--sans); font-size: 12px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+            margin-bottom: 14px;
+        }
+        .hero h1 {
+            font-family: var(--sans); font-weight: 700; color: var(--ink);
+            font-size: 52px; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 10px;
+        }
+        .descriptor { font-style: italic; color: var(--meta); font-size: 19px; margin-bottom: 22px; }
+        .amber-rule { width: 54px; height: 3px; background: var(--amber); margin-bottom: 26px; }
+        .hero p { font-size: 17px; color: var(--body); margin-bottom: 16px; }
+        .hero p .lead { color: var(--ink); font-weight: 500; }
+        .hint {
+            font-family: var(--sans); font-size: 13px; color: var(--meta);
+            border-left: 2px solid var(--amber); padding-left: 14px; margin-top: 24px;
+        }
+
+        /* ── STUDIO: controls left, art right ─────────────────────────────── */
+        .studio { display: flex; gap: 28px; align-items: flex-start; }
+        .panel {
+            width: 318px; flex-shrink: 0; background: var(--page);
+            border: 1px solid var(--line); border-radius: 10px; padding: 24px;
+            box-shadow: 0 6px 22px rgba(28,28,28,0.05);
+            max-height: calc(100vh - 60px); position: sticky; top: 24px;
+            overflow-y: auto;
+        }
+        .panel-heading {
+            font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink);
+            letter-spacing: 0.04em; margin-bottom: 6px;
+        }
+        .panel-sub { font-family: var(--sans); font-size: 12px; color: var(--meta); margin-bottom: 22px; line-height: 1.4; }
+
+        .section { margin-bottom: 26px; }
+        .section h3 {
+            font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--ink);
+            letter-spacing: 0.06em; text-transform: uppercase;
+            margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+        .section h3::before { content: ''; width: 6px; height: 6px; background: var(--amber); border-radius: 50%; display: inline-block; }
+        .section h3 .note { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--meta); font-size: 11px; }
+
+        .seed-input {
+            width: 100%; background: var(--page); padding: 11px; border-radius: 7px;
+            font-family: "SF Mono", "Courier New", monospace; font-size: 14px; margin-bottom: 10px;
+            border: 1px solid var(--line); text-align: center; color: var(--ink);
+        }
+        .seed-input:focus { outline: none; border-color: var(--amber); box-shadow: 0 0 0 2px rgba(192,135,27,0.12); }
+        .seed-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+
+        .control-group { margin-bottom: 18px; }
+        .control-group label { display: block; font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--body); margin-bottom: 8px; }
+        .slider-container { display: flex; align-items: center; gap: 12px; }
+        input[type="range"] { flex: 1; height: 3px; background: var(--line); border-radius: 2px; outline: none; -webkit-appearance: none; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; background: var(--amber); border-radius: 50%; cursor: pointer; transition: transform 0.15s ease; }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+        input[type="range"]::-moz-range-thumb { width: 15px; height: 15px; background: var(--amber); border-radius: 50%; border: none; cursor: pointer; }
+        .value-display { font-family: "SF Mono", "Courier New", monospace; font-size: 12px; color: var(--meta); min-width: 56px; text-align: right; }
+
+        .color-group { margin-bottom: 12px; }
+        .color-group label { display: block; font-family: var(--sans); font-size: 11px; color: var(--meta); margin-bottom: 4px; }
+        .color-picker-container { display: flex; align-items: center; gap: 8px; }
+        input[type="color"] { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; background: none; padding: 0; }
+        .color-value { font-family: "SF Mono", "Courier New", monospace; font-size: 12px; color: var(--meta); }
+
+        .button {
+            font-family: var(--sans); background: var(--amber); color: #fff; border: 1px solid var(--amber);
+            padding: 10px 14px; border-radius: 7px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all 0.15s ease; width: 100%;
+        }
+        .button:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+        .button.ghost { background: var(--page); color: var(--ink); border: 1px solid var(--line); }
+        .button.ghost:hover { border-color: var(--amber); color: var(--amber); background: var(--page); }
+        .button-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        .button-row .button { flex: 1; }
+        .share-btn { display: flex; align-items: center; justify-content: center; gap: 7px; }
+
+        /* ── STAGE / CANVAS ───────────────────────────────────────────────── */
+        .stage { flex: 1; min-width: 0; }
+        #canvas-container {
+            width: 100%; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+            background: #fff; box-shadow: 0 10px 30px rgba(28,28,28,0.06);
+        }
+        #canvas-container canvas { display: block; width: 100% !important; height: auto !important; }
+        .stage-caption { font-family: var(--sans); font-size: 12px; color: var(--meta); margin-top: 12px; text-align: center; }
+        .loading { display: flex; align-items: center; justify-content: center; min-height: 420px; font-family: var(--sans); font-size: 16px; color: var(--meta); }
+
+        /* ── FOOTER ───────────────────────────────────────────────────────── */
+        footer {
+            max-width: 760px; margin: 56px auto 0; padding-top: 22px; border-top: 1px solid var(--line);
+            font-family: var(--sans); font-size: 12px; color: var(--meta);
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+        }
+        footer .mark { color: var(--ink); font-weight: 700; letter-spacing: 0.04em; }
+
+        /* ── TOAST ────────────────────────────────────────────────────────── */
+        .toast {
+            position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(18px);
+            background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 8px;
+            font-family: var(--sans); font-size: 13.5px; opacity: 0; pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease; z-index: 100; max-width: 90vw;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast b { color: var(--amber); }
+
+        @media (max-width: 820px) {
+            .studio { flex-direction: column; }
+            .panel { width: 100%; position: static; max-height: none; }
+            .hero h1 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="hero">
+            <div class="kicker">Formatic Labs — Preview</div>
+            <h1>Culture</h1>
+            <div class="descriptor">Emergence from instinct.</div>
+            <div class="amber-rule"></div>
+
+            <p><span class="lead">Labs is where we follow curiosity instead of a roadmap.</span> No revenue target, no client, nothing to justify — just ideas we want to mess with and whatever crawls out the other side. This is the first preview.</p>
+
+            <p><span class="lead">Culture is a digital petri dish.</span> A few hundred agents, a handful of species, and one hidden rulebook deciding who's drawn to whom and who flees whom. No agent is told to build anything — yet from pure local instinct, approach and avoid, membranes form, colonies bloom, and organisms chase prey that flees them. You don't design the result. You set the conditions and cultivate what emerges.</p>
+
+            <p>Every seed is a different rulebook, so every seed grows a different lifeform. Roll a new one, nudge the conditions, and when something stops you — share it.</p>
+
+            <div class="hint">The <b>Copy Share Link</b> button rebuilds your exact organism — same seed, same settings, same colors — for anyone who opens the link.</div>
+        </header>
+
+        <main class="studio">
+            <aside class="panel">
+                <div class="panel-heading">Studio</div>
+                <div class="panel-sub">Roll the seed for a new lifeform. The sliders change its biology.</div>
+
+                <div class="section">
+                    <h3>Seed <span class="note">— the rulebook</span></h3>
+                    <input type="number" id="seed-input" class="seed-input" value="2049" onchange="updateSeed()">
+                    <div class="seed-controls">
+                        <button class="button ghost" onclick="previousSeed()">← Prev</button>
+                        <button class="button ghost" onclick="nextSeed()">Next →</button>
+                    </div>
+                    <button class="button" onclick="randomSeedAndUpdate()">↻ New Lifeform</button>
+                </div>
+
+                <div class="section">
+                    <h3>Parameters</h3>
+
+                    <div class="control-group">
+                        <label>Population</label>
+                        <div class="slider-container"><input type="range" id="count" min="300" max="2400" step="100" value="1200" oninput="updateParam('count', this.value)"><span class="value-display" id="count-value">1200</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Species</label>
+                        <div class="slider-container"><input type="range" id="species" min="2" max="5" step="1" value="5" oninput="updateParam('species', this.value)"><span class="value-display" id="species-value">5</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Reach (interaction radius)</label>
+                        <div class="slider-container"><input type="range" id="reach" min="0.04" max="0.20" step="0.005" value="0.10" oninput="updateParam('reach', this.value)"><span class="value-display" id="reach-value">0.10</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Force</label>
+                        <div class="slider-container"><input type="range" id="force" min="2" max="20" step="0.5" value="9" oninput="updateParam('force', this.value)"><span class="value-display" id="force-value">9</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Friction</label>
+                        <div class="slider-container"><input type="range" id="friction" min="0" max="1" step="0.02" value="0.42" oninput="updateParam('friction', this.value)"><span class="value-display" id="friction-value">0.42</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Personal Space</label>
+                        <div class="slider-container"><input type="range" id="beta" min="0.1" max="0.5" step="0.01" value="0.3" oninput="updateParam('beta', this.value)"><span class="value-display" id="beta-value">0.3</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Cell Size</label>
+                        <div class="slider-container"><input type="range" id="dot" min="2" max="9" step="0.5" value="4" oninput="updateParam('dot', this.value)"><span class="value-display" id="dot-value">4</span></div>
+                    </div>
+                    <div class="control-group">
+                        <label>Motion Trails</label>
+                        <div class="slider-container"><input type="range" id="trail" min="0" max="12" step="1" value="0" oninput="updateParam('trail', this.value)"><span class="value-display" id="trail-value">0</span></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Colors</h3>
+                    <div class="color-group"><label>Species 1</label><div class="color-picker-container"><input type="color" id="s0" value="#C0871B" onchange="updateColor(0,this.value)"><span class="color-value" id="s0-value">#C0871B</span></div></div>
+                    <div class="color-group"><label>Species 2</label><div class="color-picker-container"><input type="color" id="s1" value="#1C1C1C" onchange="updateColor(1,this.value)"><span class="color-value" id="s1-value">#1C1C1C</span></div></div>
+                    <div class="color-group"><label>Species 3</label><div class="color-picker-container"><input type="color" id="s2" value="#5B7B9A" onchange="updateColor(2,this.value)"><span class="color-value" id="s2-value">#5B7B9A</span></div></div>
+                    <div class="color-group"><label>Species 4</label><div class="color-picker-container"><input type="color" id="s3" value="#7C8A5A" onchange="updateColor(3,this.value)"><span class="color-value" id="s3-value">#7C8A5A</span></div></div>
+                    <div class="color-group"><label>Species 5</label><div class="color-picker-container"><input type="color" id="s4" value="#B5654A" onchange="updateColor(4,this.value)"><span class="color-value" id="s4-value">#B5654A</span></div></div>
+                    <div class="color-group"><label>Ground (Page)</label><div class="color-picker-container"><input type="color" id="bg" value="#FFFFFF" onchange="updateBg(this.value)"><span class="color-value" id="bg-value">#FFFFFF</span></div></div>
+                </div>
+
+                <div class="section">
+                    <h3>Share &amp; Save</h3>
+                    <button class="button share-btn" onclick="shareLink()">🔗 Copy Share Link</button>
+                    <div class="button-row" style="margin-top:8px;">
+                        <button class="button ghost" onclick="togglePause()" id="pauseBtn">❚❚ Pause</button>
+                        <button class="button ghost" onclick="resetParameters()">Reset</button>
+                    </div>
+                    <button class="button ghost" onclick="downloadPNG()">↓ Download PNG</button>
+                </div>
+            </aside>
+
+            <section class="stage">
+                <div id="canvas-container"><div class="loading">Seeding the culture…</div></div>
+                <div class="stage-caption">Give it a few seconds — the agents have to find each other before anything forms.</div>
+            </section>
+        </main>
+
+        <footer>
+            <span class="mark">Formatic Labs</span>
+            <span>Preview · will migrate to the Labs site</span>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ── PARAMETERS ──────────────────────────────────────────────────────────
+        let params = {
+            seed: 2049, count: 1200, species: 5,
+            reach: 0.10, force: 9, friction: 0.42, beta: 0.3, dot: 4, trail: 0,
+            palette: ['#C0871B', '#1C1C1C', '#5B7B9A', '#7C8A5A', '#B5654A'],
+            bg: '#FFFFFF'
+        };
+        let defaultParams = JSON.parse(JSON.stringify(params));
+
+        const SIZE = 1000, DT = 0.02;
+        let particles = [], matrix = [], cols = [], bgCol;
+        let paused = false, onscreen = true;
+
+        function setup() {
+            applyURLState();                 // hydrate from a shared link, if present
+            const canvas = createCanvas(SIZE, SIZE);
+            canvas.parent('canvas-container');
+            const loader = document.querySelector('.loading');
+            if (loader) loader.style.display = 'none';
+            syncControls();
+            parseColors();
+            initSystem();
+            observeVisibility();
+        }
+
+        function parseColors() {
+            cols = params.palette.map(c => color(c));
+            bgCol = color(params.bg);
+        }
+
+        function buildMatrix() {
+            matrix = [];
+            for (let i = 0; i < params.species; i++) {
+                const row = [];
+                for (let j = 0; j < params.species; j++) row.push(random(-1, 1));
+                matrix.push(row);
+            }
+        }
+
+        function initSystem() {
+            randomSeed(params.seed);
+            noiseSeed(params.seed);
+            buildMatrix();
+            particles = [];
+            for (let i = 0; i < params.count; i++) {
+                particles.push({ x: random(), y: random(), vx: 0, vy: 0, s: floor(random(params.species)) });
+            }
+            background(bgCol);
+        }
+
+        function forceCurve(d, a) {
+            const b = params.beta;
+            if (d < b) return d / b - 1;
+            if (d < 1) return a * (1 - Math.abs(2 * d - 1 - b) / (1 - b));
+            return 0;
+        }
+        function wrapDelta(d) { return d > 0.5 ? d - 1 : (d < -0.5 ? d + 1 : d); }
+
+        function draw() {
+            if (!onscreen) return;           // off-screen: skip the heavy work
+            if (params.trail > 0) {
+                noStroke();
+                fill(red(bgCol), green(bgCol), blue(bgCol), map(params.trail, 1, 12, 55, 8));
+                rect(0, 0, width, height);
+            } else {
+                background(bgCol);
+            }
+            if (!paused) step();
+            render();
+        }
+
+        function step() {
+            const rMax = params.reach;
+            const frictionFactor = Math.pow(0.5, DT / map(1 - params.friction, 0, 1, 0.008, 0.18));
+            const forceFactor = params.force;
+
+            const gc = max(1, floor(1 / rMax));
+            const cell = 1 / gc;
+            const buckets = new Array(gc * gc);
+            for (let i = 0; i < buckets.length; i++) buckets[i] = [];
+            for (const p of particles) {
+                let cx = floor(p.x / cell); cx = cx >= gc ? gc - 1 : (cx < 0 ? 0 : cx);
+                let cy = floor(p.y / cell); cy = cy >= gc ? gc - 1 : (cy < 0 ? 0 : cy);
+                buckets[cy * gc + cx].push(p);
+            }
+
+            for (const p of particles) {
+                let fx = 0, fy = 0;
+                let cx = floor(p.x / cell); cx = cx >= gc ? gc - 1 : (cx < 0 ? 0 : cx);
+                let cy = floor(p.y / cell); cy = cy >= gc ? gc - 1 : (cy < 0 ? 0 : cy);
+                const prow = matrix[p.s];
+                for (let oy = -1; oy <= 1; oy++) {
+                    for (let ox = -1; ox <= 1; ox++) {
+                        const bx = (cx + ox + gc) % gc, by = (cy + oy + gc) % gc;
+                        for (const q of buckets[by * gc + bx]) {
+                            if (q === p) continue;
+                            const dx = wrapDelta(q.x - p.x), dy = wrapDelta(q.y - p.y);
+                            const d = Math.sqrt(dx * dx + dy * dy);
+                            if (d > 0 && d < rMax) {
+                                const f = forceCurve(d / rMax, prow[q.s]);
+                                fx += (dx / d) * f; fy += (dy / d) * f;
+                            }
+                        }
+                    }
+                }
+                fx *= rMax * forceFactor; fy *= rMax * forceFactor;
+                p.vx = p.vx * frictionFactor + fx * DT;
+                p.vy = p.vy * frictionFactor + fy * DT;
+            }
+            for (const p of particles) {
+                p.x += p.vx * DT; p.x = (p.x % 1 + 1) % 1;
+                p.y += p.vy * DT; p.y = (p.y % 1 + 1) % 1;
+            }
+        }
+
+        function render() {
+            noStroke();
+            const r = params.dot;
+            for (const p of particles) { fill(cols[p.s]); circle(p.x * width, p.y * height, r); }
+        }
+
+        // ── VISIBILITY (auto-pause off-screen) ──────────────────────────────────
+        function observeVisibility() {
+            const target = document.getElementById('canvas-container');
+            if (!('IntersectionObserver' in window)) return;
+            new IntersectionObserver((entries) => {
+                onscreen = entries[0].isIntersecting;
+            }, { threshold: 0.05 }).observe(target);
+        }
+
+        // ── UI HANDLERS ─────────────────────────────────────────────────────────
+        function updateParam(name, value) {
+            params[name] = parseFloat(value);
+            document.getElementById(name + '-value').textContent = value;
+            if (name === 'count' || name === 'species') initSystem();
+        }
+        function updateColor(i, value) {
+            params.palette[i] = value;
+            document.getElementById('s' + i + '-value').textContent = value;
+            parseColors();
+        }
+        function updateBg(value) {
+            params.bg = value;
+            document.getElementById('bg-value').textContent = value;
+            parseColors(); background(bgCol);
+        }
+        function togglePause() {
+            paused = !paused;
+            document.getElementById('pauseBtn').textContent = paused ? '▶ Play' : '❚❚ Pause';
+        }
+
+        function updateSeedDisplay() { document.getElementById('seed-input').value = params.seed; }
+        function updateSeed() {
+            const v = parseInt(document.getElementById('seed-input').value);
+            if (v && v > 0) { params.seed = v; initSystem(); } else updateSeedDisplay();
+        }
+        function previousSeed() { params.seed = Math.max(1, params.seed - 1); updateSeedDisplay(); initSystem(); }
+        function nextSeed() { params.seed += 1; updateSeedDisplay(); initSystem(); }
+        function randomSeedAndUpdate() { params.seed = Math.floor(Math.random() * 999999) + 1; updateSeedDisplay(); initSystem(); }
+
+        // Push every value in `params` back into the on-screen controls.
+        function syncControls() {
+            ['count','species','reach','force','friction','beta','dot','trail'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.value = params[id]; document.getElementById(id + '-value').textContent = params[id]; }
+            });
+            for (let i = 0; i < 5; i++) {
+                document.getElementById('s' + i).value = params.palette[i];
+                document.getElementById('s' + i + '-value').textContent = params.palette[i];
+            }
+            document.getElementById('bg').value = params.bg;
+            document.getElementById('bg-value').textContent = params.bg;
+            updateSeedDisplay();
+        }
+
+        function resetParameters() {
+            params = JSON.parse(JSON.stringify(defaultParams));
+            syncControls(); parseColors(); initSystem();
+        }
+        function downloadPNG() { saveCanvas('formatic-labs-culture-seed-' + params.seed, 'png'); }
+
+        // ── SHARE: encode full state into the URL, copy to clipboard ─────────────
+        function buildShareURL() {
+            const q = new URLSearchParams();
+            q.set('seed', params.seed); q.set('n', params.count); q.set('sp', params.species);
+            q.set('r', params.reach); q.set('f', params.force); q.set('fr', params.friction);
+            q.set('b', params.beta); q.set('d', params.dot); q.set('tr', params.trail);
+            params.palette.forEach((c, i) => q.set('c' + i, c.replace('#', '')));
+            q.set('bg', params.bg.replace('#', ''));
+            return location.origin + location.pathname + '?' + q.toString();
+        }
+        function applyURLState() {
+            const q = new URLSearchParams(location.search);
+            if ([...q].length === 0) return;
+            const num = (k, d) => q.has(k) ? parseFloat(q.get(k)) : d;
+            if (q.has('seed')) params.seed = parseInt(q.get('seed')) || params.seed;
+            params.count = num('n', params.count);
+            params.species = num('sp', params.species);
+            params.reach = num('r', params.reach);
+            params.force = num('f', params.force);
+            params.friction = num('fr', params.friction);
+            params.beta = num('b', params.beta);
+            params.dot = num('d', params.dot);
+            params.trail = num('tr', params.trail);
+            for (let i = 0; i < 5; i++) if (q.has('c' + i)) params.palette[i] = '#' + q.get('c' + i);
+            if (q.has('bg')) params.bg = '#' + q.get('bg');
+        }
+        function shareLink() {
+            const url = buildShareURL();
+            const ok = () => showToast('<b>Link copied.</b> It rebuilds this exact lifeform.');
+            const fail = () => { try {
+                const t = document.createElement('textarea'); t.value = url; document.body.appendChild(t);
+                t.select(); document.execCommand('copy'); document.body.removeChild(t); ok();
+            } catch (e) { window.prompt('Copy this link:', url); } };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(ok, fail);
+            } else { fail(); }
+        }
+        let toastTimer;
+        function showToast(html) {
+            const t = document.getElementById('toast');
+            t.innerHTML = html; t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+        }
+    </script>
+</body>
+</html>

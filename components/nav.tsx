@@ -18,7 +18,18 @@ export function Nav() {
             Formatic Systems
           </span>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-4">
+          {/* Links to the self-contained Formatic Labs preview (static page served
+              from /public via a rewrite). Plain <a> so it does a full navigation
+              rather than a client-side route transition. */}
+          <a
+            href="/lab/culture"
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            Labs
+          </a>
+          <ThemeToggle />
+        </div>
       </div>
     </motion.nav>
   );

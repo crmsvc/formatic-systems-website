@@ -12,11 +12,11 @@ const syne = Syne({
 export const metadata: Metadata = {
   title: "Formatic Systems | AI Products & Services",
   description:
-    "We build AI tools that help businesses run smarter. Done right or not done at all.",
+    "We build AI tools that help businesses run smarter.",
   openGraph: {
     title: "Formatic Systems | AI Products & Services",
     description:
-      "We build AI tools that help businesses run smarter. Done right or not done at all.",
+      "We build AI tools that help businesses run smarter.",
     url: "https://formaticsystems.com",
     siteName: "Formatic Systems",
     type: "website",

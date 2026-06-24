@@ -43,10 +43,6 @@ export function Hero() {
           className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl"
         >
           We build AI tools that help businesses run smarter.
-          <br />
-          <span className="text-muted-foreground/60">
-            Done right or not done at all.
-          </span>
         </motion.p>
 
         {/* CTAs */}
