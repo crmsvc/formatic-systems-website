@@ -6,9 +6,9 @@ import { Mic, Brain, Search, Wrench } from "lucide-react";
 const products = [
   {
     icon: Mic,
-    title: "Voice AI",
+    title: "Front Office",
     description:
-      "Phone agents that actually know your business. Not scraped websites and FAQ lists — real knowledge from your actual documents.",
+      "It doesn't just answer the phone — it runs the office. Calls, texts, booking, lead alerts, and instant answers from your own business, day or night.",
   },
   {
     icon: Brain,

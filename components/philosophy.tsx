@@ -16,16 +16,29 @@ export function Philosophy() {
           {/* Decorative accent */}
           <div className="absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-          <p className="text-2xl font-semibold leading-snug tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
-            We don&apos;t scrape your website and call it trained.
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+            Formatic Labs
+          </p>
+          <p className="mt-4 text-2xl font-semibold italic leading-snug tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
+            Curiosity, with the safety off.
           </p>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            The AI industry has conditioned businesses to accept fast and shallow
-            as the standard. Five-minute setups. Website scraping. Ten FAQ
-            answers. We believe if it&apos;s worth doing, it&apos;s worth doing
-            right — with real documents, real knowledge, and real answers.
+            Labs is where we follow curiosity instead of a roadmap — a place to
+            prototype creative ideas and solutions with nothing to prove and no
+            one to please. No clients. No deadlines. Just whatever&apos;s worth
+            building to find out if it works. Some experiments grow into
+            products. Most just get to be interesting. Either way, this is where
+            Formatic thinks out loud.
           </p>
-          <div className="mt-8 h-px w-16 bg-primary/40" />
+          {/* Plain <a> (not next/link): the Culture page is a static file served
+              from /public via a rewrite, so it needs a full navigation. */}
+          <a
+            href="/lab/culture"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            See what&apos;s growing
+            <span aria-hidden="true">→</span>
+          </a>
         </motion.div>
       </div>
     </section>

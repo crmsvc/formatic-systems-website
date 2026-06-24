@@ -12,19 +12,6 @@ export function Hero() {
       <div className="pointer-events-none absolute bottom-0 -left-40 h-[400px] w-[400px] rounded-full bg-primary/3 blur-3xl" />
 
       <div className="relative mx-auto max-w-3xl">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-[var(--amber-dim)] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--amber)]" />
-            AI Products & Services
-          </span>
-        </motion.div>
-
         {/* Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

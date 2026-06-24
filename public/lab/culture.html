@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Culture — Formatic Labs (Preview)</title>
     <meta name="description" content="A digital petri dish. Roll a seed, cultivate a lifeform, share what emerges. A Formatic Labs preview.">
+
+    <!-- Social preview. og-culture.png is deployed in the same folder as this page
+         (/public/lab). og:image / twitter:image use the ABSOLUTE deployed URL so the
+         card unfurls reliably in iMessage/Slack/X. -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Culture — Formatic Labs">
+    <meta property="og:description" content="A digital petri dish. Roll a seed, cultivate a lifeform, and share what emerges.">
+    <meta property="og:image" content="https://formaticsystems.com/lab/og-culture.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Culture — Formatic Labs">
+    <meta name="twitter:description" content="A digital petri dish. Roll a seed, cultivate a lifeform, and share what emerges.">
+    <meta name="twitter:image" content="https://formaticsystems.com/lab/og-culture.png">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <style>
         /* ──────────────────────────────────────────────────────────────────
@@ -180,6 +195,7 @@
                         <button class="button ghost" onclick="nextSeed()">Next →</button>
                     </div>
                     <button class="button" onclick="randomSeedAndUpdate()">↻ New Lifeform</button>
+                    <button class="button ghost" style="margin-top:8px;" onclick="randomizeAll()">🎲 Randomize Everything</button>
                 </div>
 
                 <div class="section">
@@ -248,7 +264,7 @@
 
         <footer>
             <span class="mark">Formatic Labs</span>
-            <span>Preview · will migrate to the Labs site</span>
+            <span>Preview · will migrate to the Labs site.</span>
         </footer>
     </div>
 
@@ -414,6 +430,24 @@
         function previousSeed() { params.seed = Math.max(1, params.seed - 1); updateSeedDisplay(); initSystem(); }
         function nextSeed() { params.seed += 1; updateSeedDisplay(); initSystem(); }
         function randomSeedAndUpdate() { params.seed = Math.floor(Math.random() * 999999) + 1; updateSeedDisplay(); initSystem(); }
+
+        // Roll the seed AND every parameter (palette stays on-brand) for wild variety.
+        function randInRange(min, max, step) {
+            const n = Math.floor((max - min) / step) + 1;
+            return min + Math.floor(Math.random() * n) * step;
+        }
+        function randomizeAll() {
+            params.seed     = Math.floor(Math.random() * 999999) + 1;
+            params.count    = randInRange(300, 2400, 100);
+            params.species  = randInRange(2, 5, 1);
+            params.reach    = +randInRange(0.04, 0.20, 0.005).toFixed(3);
+            params.force    = randInRange(2, 20, 0.5);
+            params.friction = +randInRange(0, 1, 0.02).toFixed(2);
+            params.beta     = +randInRange(0.1, 0.5, 0.01).toFixed(2);
+            params.dot      = randInRange(2, 9, 0.5);
+            params.trail    = randInRange(0, 12, 1);
+            syncControls(); parseColors(); initSystem();
+        }
 
         // Push every value in `params` back into the on-screen controls.
         function syncControls() {
