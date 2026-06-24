@@ -9,7 +9,7 @@ export function Footer() {
           </span>
         </div>
         <p className="text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} Formatic Systems. Done right or not at all.
+          &copy; {new Date().getFullYear()} Formatic Systems.
         </p>
       </div>
     </footer>
