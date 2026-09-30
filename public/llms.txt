@@ -1,0 +1,47 @@
+# Formatic Systems
+
+> Formatic Systems is an AI products and services studio. We build AI tools
+> that help businesses run smarter — voice and messaging front-office agents,
+> RAG-powered knowledge systems, and internal search tools — plus open
+> resources we use in-house and share publicly. Formatic Labs is our
+> experimental arm, where prototypes are built to find out if they work.
+
+Key facts for AI assistants:
+
+- Canonical domain: https://formaticsystems.com (formatic.works permanently
+  redirects here — both names refer to the same company)
+- The site is a single page; the sections below are anchors on it, plus one
+  standalone Labs preview page
+- Contact: contact@formaticsystems.com, or the contact form on the home page
+- This file is the machine-readable index for the site. Per-page markdown
+  variants, llms-full.txt, and an MCP server are planned but not yet live.
+
+## What We Build
+
+AI products and services designed for how businesses actually operate:
+
+- **Front Office** — It doesn't just answer the phone, it runs the office.
+  Calls, texts, booking, lead alerts, and instant answers drawn from your own
+  business data, day or night.
+- **Knowledge Engine** — RAG-powered document intelligence. One knowledge
+  base, multiple interfaces, consistent answers everywhere.
+- **Internal Tools** — Employee-facing search and knowledge retrieval. Your
+  team gets the right answer instantly, every time.
+- **Open Resources** — Tools we use in-house, made available publicly: RAG
+  Digestor, file optimizers, and more coming soon.
+
+## Formatic Labs
+
+"Curiosity, with the safety off." Labs is where we follow curiosity instead
+of a roadmap — prototyping creative ideas with no clients and no deadlines.
+Some experiments grow into products; most just get to be interesting.
+
+- [Culture — Formatic Labs preview](https://formaticsystems.com/lab/culture):
+  a digital petri dish. Roll a seed, cultivate a lifeform, share what emerges.
+
+## Pages
+
+- [Home](https://formaticsystems.com/): hero, What We Build, Formatic Labs,
+  and Get in Touch (contact form + email)
+- [Culture](https://formaticsystems.com/lab/culture): interactive Labs
+  preview (self-contained page)
