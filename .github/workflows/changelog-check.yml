@@ -1,0 +1,17 @@
+name: changelog-check
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Require CHANGELOG.md when source changes
+        run: |
+          files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")
+          if printf "%s\n" "$files" | grep -vqE '^(CHANGELOG\.md|PROJECT_LOG\.md|docs/|.*\.md$)'; then
+            printf "%s\n" "$files" | grep -q '^CHANGELOG\.md$' \
+              || { echo "::error::CHANGELOG.md must be updated when source changes."; exit 1; }
+          fi

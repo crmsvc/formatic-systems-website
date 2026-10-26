@@ -1,14 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mic, Brain, Search, Wrench } from "lucide-react";
+import { Mic, Camera, Brain, Search, Wrench } from "lucide-react";
 
-const products = [
+type Product = {
+  icon: typeof Mic;
+  title: string;
+  description: string;
+  cta?: { label: string; href: string };
+  wide?: boolean;
+};
+
+const products: Product[] = [
   {
     icon: Mic,
     title: "Front Office",
     description:
       "It doesn't just answer the phone — it runs the office. Calls, texts, booking, lead alerts, and instant answers from your own business, day or night.",
+  },
+  {
+    icon: Camera,
+    title: "ProjectPix",
+    description:
+      "The simpler, AI-ready jobsite photo app. Opens straight to the camera, works offline, lines up your after shot with the before, and gives every project one shareable link — with AI tags and captions built in, not sold as an add-on.",
+    // Private beta: link to the waitlist only — never promise public availability.
+    cta: { label: "Join the waitlist", href: "https://projectpix.io" },
   },
   {
     icon: Brain,
@@ -27,6 +43,8 @@ const products = [
     title: "Open Resources",
     description:
       "Tools we use in-house, made available to you. RAG Digestor, file optimizers, and more coming soon.",
+    // Fifth card: span the full row so the 2-column grid stays even.
+    wide: true,
   },
 ];
 
@@ -72,7 +90,7 @@ export function WhatWeBuild() {
             <motion.div
               key={product.title}
               variants={itemVariants}
-              className="group rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/30 hover:bg-card/80"
+              className={`group rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/30 hover:bg-card/80${product.wide ? " sm:col-span-2" : ""}`}
             >
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                 <product.icon className="h-5 w-5 text-primary" />
@@ -83,6 +101,17 @@ export function WhatWeBuild() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {product.description}
               </p>
+              {product.cta && (
+                <a
+                  href={product.cta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                >
+                  {product.cta.label}
+                  <span aria-hidden="true">→</span>
+                </a>
+              )}
             </motion.div>
           ))}
         </motion.div>

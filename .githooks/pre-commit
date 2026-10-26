@@ -1,0 +1,14 @@
+#!/bin/sh
+# Second-Brain changelog gate (operating standard §5, Layer 1).
+# Blocks any commit that changes source without also staging CHANGELOG.md.
+staged=$(git diff --cached --name-only)
+touches_source=$(printf "%s\n" "$staged" | grep -vE '^(CHANGELOG\.md|PROJECT_LOG\.md|docs/|.*\.md$)' | head -n1)
+if [ -n "$touches_source" ]; then
+  if ! printf "%s\n" "$staged" | grep -q '^CHANGELOG\.md$'; then
+    echo "✖ Commit blocked: source changed but CHANGELOG.md was not updated."
+    echo "  Add a dated entry (WHAT changed + WHY), stage CHANGELOG.md, re-commit."
+    echo "  Emergency bypass (owner OK only): git commit --no-verify"
+    exit 1
+  fi
+fi
+exit 0

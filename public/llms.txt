@@ -23,6 +23,11 @@ AI products and services designed for how businesses actually operate:
 - **Front Office** — It doesn't just answer the phone, it runs the office.
   Calls, texts, booking, lead alerts, and instant answers drawn from your own
   business data, day or night.
+- **ProjectPix** — A simpler, AI-ready jobsite photo app for contractors:
+  shoot, tag, mark up, and share job photos. Opens straight to the camera,
+  works offline, keeps originals untouched under markup, and gives each
+  project one shareable client link. AI tags and captions are built in.
+  Private beta — join the waitlist at https://projectpix.io
 - **Knowledge Engine** — RAG-powered document intelligence. One knowledge
   base, multiple interfaces, consistent answers everywhere.
 - **Internal Tools** — Employee-facing search and knowledge retrieval. Your
