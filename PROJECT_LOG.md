@@ -8,6 +8,7 @@
 - Next action: Johnny reviews the ProjectPix card screenshot → OK to merge the branch into `main` (which deploys).
 
 ## Open items / decisions pending
+- **2026-10-26 — Formatic Admin Console hand-off** at `docs/handoffs/CC-HANDOFF-2026-10-26-formatic-admin-console.md` (copy in `claude-deliverables\Formatic\`). Not started. Johnny decides D1–D6 in a brainstorm first (owner of billing, one Stripe vs many, which repo, shared login, priority, domain). Claude recommends a new `formatic-console` repo rather than this marketing site.
 - [ ] Merge the ProjectPix + instrumentation branch to `main` — Johnny — push to `main` deploys to production.
 - [ ] Turn on GitHub branch protection on `main` requiring the `changelog-check` workflow — Johnny — a GitHub setting, not done from CC.
 - [ ] Hook note: Claude Code worktrees set a per-worktree `core.hooksPath` to the global `~/.githooks`, which overrides the repo's `.githooks`. Both gates enforce CHANGELOG.md, so commits are still gated. The main checkout uses `.githooks` (repo-local config). — info only.
