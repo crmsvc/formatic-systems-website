@@ -6,6 +6,12 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Changed
+- 2026-10-27 — **Admin console spec v1 marked superseded.** Johnny approved it. The approved v2
+  and the Phase 1 plan now live in the new `formatic-console` repo
+  (`C:\Users\John Torres\Documents\GitHub\formatic-console`). **Why:** spec decision D3 says
+  the console does not live in this public marketing repo.
+
 ### Added
 - 2026-10-26 — **Spec draft: Formatic Admin Console + Formatic Core**
   (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`).

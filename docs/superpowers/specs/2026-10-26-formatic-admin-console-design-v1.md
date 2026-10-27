@@ -12,6 +12,10 @@ supersedes: nothing (first spec on this topic). When approved, it supersedes the
 
 # Formatic Admin Console + Formatic Core — Design Spec v1
 
+> **⚠ SUPERSEDED (2026-10-27).** Johnny approved this draft with answers to §14. The current spec
+> is `formatic-labs/formatic-console` → `docs/superpowers/specs/2026-10-27-formatic-admin-console-design-v2.md`.
+> Do not build from this copy.
+
 > **How to read this.** Johnny skipped the question round and asked for a spec to react to.
 > Everything marked **Johnny said** is his. Everything marked **(Claude's call)** is a default
 > chosen from the hand-off's recommendations; change any of them and the spec changes with it.

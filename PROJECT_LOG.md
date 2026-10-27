@@ -8,7 +8,7 @@
 - Next action: Johnny reviews the ProjectPix card screenshot → OK to merge the branch into `main` (which deploys).
 
 ## Open items / decisions pending
-- **2026-10-26 — Formatic Admin Console:** hand-off at `docs/handoffs/CC-HANDOFF-2026-10-26-formatic-admin-console.md`; **spec draft v1** at `docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md` (branch `docs/admin-console-spec`, copy in `claude-deliverables\Formatic\`). Johnny is reviewing it. D1–D6 are Claude's calls pending his OK; three open questions in spec §14. On approval: create the new `formatic-console` repo, move the spec there, then write the Phase 1 plan.
+- **Formatic Admin Console has moved out of this repo (2026-10-27).** Johnny approved the spec. The work now lives in `formatic-labs/formatic-console`, locally at `C:\Users\John Torres\Documents\GitHub\formatic-console`; read its PROJECT_LOG. The v1 draft here is superseded and carries a banner.
 - [ ] Merge the ProjectPix + instrumentation branch to `main` — Johnny — push to `main` deploys to production.
 - [ ] Turn on GitHub branch protection on `main` requiring the `changelog-check` workflow — Johnny — a GitHub setting, not done from CC.
 - [ ] Hook note: Claude Code worktrees set a per-worktree `core.hooksPath` to the global `~/.githooks`, which overrides the repo's `.githooks`. Both gates enforce CHANGELOG.md, so commits are still gated. The main checkout uses `.githooks` (repo-local config). — info only.
@@ -23,6 +23,10 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-10-27 · CC · Claude
+- **Done:** Johnny approved the admin-console spec. He said there is no chance of selling an app separately (so one Stripe account), the 72-hour fallback is fine, and support may grant access. Created the `formatic-console` repo with spec v2 and the Phase 1 plan, and put a superseded banner on v1 here.
+- **Supersession:** `docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md` is replaced by `formatic-console/docs/superpowers/specs/2026-10-27-formatic-admin-console-design-v2.md`.
+- **Next:** in this repo, nothing for the console. The ProjectPix card merge is still pending.
 ### 2026-10-26 · CC · Claude
 - Done: read the admin-console hand-off; Johnny skipped the brainstorm questions; wrote spec draft v1 (two pieces: Formatic Core + Admin Console, plus the `@formatic-labs/entitlements` package; data model, access resolution, Stripe flow, app API, 2FA console, 5 phases).
 - Decisions: none by Johnny yet. Claude's calls on D1–D6 recorded in spec §4, marked as such.
