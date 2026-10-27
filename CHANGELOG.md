@@ -7,6 +7,12 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 ## [Unreleased]
 
 ### Added
+- 2026-10-26 — **Spec draft: Formatic Admin Console + Formatic Core**
+  (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`).
+  **Why:** Johnny skipped the brainstorm questions and asked for a spec to react to. It takes
+  Claude's calls on D1–D6 (Core owns billing; one Stripe account, a product per app; new
+  `formatic-console` repo; link accounts now, shared login later; Phases 1–2 first;
+  `admin.formaticsystems.com`). Draft only, awaiting approval; nothing built.
 - 2026-10-26 — **Hand-off: Formatic Admin Console** (`docs/handoffs/CC-HANDOFF-2026-10-26-formatic-admin-console.md`).
   **Why:** Johnny wants one Formatic-level admin/dev console for every SaaS app (accounts,
   subscriptions, beta approvals, feature access unlocked automatically on payment or toggled by

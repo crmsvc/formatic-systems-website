@@ -8,7 +8,7 @@
 - Next action: Johnny reviews the ProjectPix card screenshot → OK to merge the branch into `main` (which deploys).
 
 ## Open items / decisions pending
-- **2026-10-26 — Formatic Admin Console hand-off** at `docs/handoffs/CC-HANDOFF-2026-10-26-formatic-admin-console.md` (copy in `claude-deliverables\Formatic\`). Not started. Johnny decides D1–D6 in a brainstorm first (owner of billing, one Stripe vs many, which repo, shared login, priority, domain). Claude recommends a new `formatic-console` repo rather than this marketing site.
+- **2026-10-26 — Formatic Admin Console:** hand-off at `docs/handoffs/CC-HANDOFF-2026-10-26-formatic-admin-console.md`; **spec draft v1** at `docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md` (branch `docs/admin-console-spec`, copy in `claude-deliverables\Formatic\`). Johnny is reviewing it. D1–D6 are Claude's calls pending his OK; three open questions in spec §14. On approval: create the new `formatic-console` repo, move the spec there, then write the Phase 1 plan.
 - [ ] Merge the ProjectPix + instrumentation branch to `main` — Johnny — push to `main` deploys to production.
 - [ ] Turn on GitHub branch protection on `main` requiring the `changelog-check` workflow — Johnny — a GitHub setting, not done from CC.
 - [ ] Hook note: Claude Code worktrees set a per-worktree `core.hooksPath` to the global `~/.githooks`, which overrides the repo's `.githooks`. Both gates enforce CHANGELOG.md, so commits are still gated. The main checkout uses `.githooks` (repo-local config). — info only.
@@ -23,6 +23,11 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-10-26 · CC · Claude
+- Done: read the admin-console hand-off; Johnny skipped the brainstorm questions; wrote spec draft v1 (two pieces: Formatic Core + Admin Console, plus the `@formatic-labs/entitlements` package; data model, access resolution, Stripe flow, app API, 2FA console, 5 phases).
+- Decisions: none by Johnny yet. Claude's calls on D1–D6 recorded in spec §4, marked as such.
+- Docs created: `docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`; copy at `G:\.shortcut-targets-by-id\1nfbqpU3qns0K45KAMBSfDdT0RxLYRsuA\claude-deliverables\Formatic\2026-10-26-formatic-admin-console-design-v1.md`.
+- Next: Johnny's edits/approval on the spec.
 ### 2026-10-25 · CC · Claude (from the ProjectPix web session's handoff)
 - Done: ran the Second-Brain rollout (PROJECT_LOG.md, CHANGELOG.md, CLAUDE.md pointer, ROLLOUT-CHECKLIST.md, `.githooks/pre-commit`, `.github/workflows/changelog-check.yml`, `core.hooksPath=.githooks`). Added a ProjectPix card (after Front Office, waitlist CTA → projectpix.io) and a ProjectPix entry in `llms.txt`.
 - Decisions: Front Office appears only in the home "What We Build" grid and `llms.txt` (no product page, not on the Labs page), so ProjectPix was added to those two places only. Copy limited to shipped features; no CRM Services mention; no integrations/desktop/dev-site/pricing claims (handoff rules).
