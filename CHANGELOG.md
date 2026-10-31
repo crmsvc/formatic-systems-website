@@ -7,6 +7,9 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 ## [Unreleased]
 
 ### Added
+- 2026-10-31 — `.claude/settings.json` enables the **superpowers** plugin (`superpowers@claude-plugins-official`, obra/superpowers) so cloud sessions get the same brainstorming / planning / TDD / debugging / verification skills as local ones. **Why:** Johnny wants superpowers in every session on every project, local or cloud. No site code changed.
+
+### Added
 - 2026-10-31 — **claude-seo is the primary SEO tool** (`.claude/settings.json` enables the plugin for local and cloud sessions; CLAUDE.md "SEO tooling" section). **Why:** Johnny wants one best SEO tool by default. No site code changed.
 
 ### Added

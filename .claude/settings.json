@@ -8,6 +8,7 @@
     }
   },
   "enabledPlugins": {
-    "claude-seo@agricidaniel-claude-seo": true
+    "claude-seo@agricidaniel-claude-seo": true,
+    "superpowers@claude-plugins-official": true
   }
 }
