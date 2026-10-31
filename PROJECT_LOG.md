@@ -23,6 +23,9 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+
+### 2026-10-31 · Claude Code (local, from the GitHub-root session) · Claude + Johnny — claude-seo enabled
+- `.claude/settings.json` enables the **claude-seo** plugin (AgriciDaniel/claude-seo) so it loads in local and cloud sessions; CLAUDE.md → "SEO tooling" makes it the primary SEO tool. Rule (Johnny, 2026-10-31): one best SEO tool by default. No site code changed.
 ### 2026-10-25 · CC · Claude (from the ProjectPix web session's handoff)
 - Done: ran the Second-Brain rollout (PROJECT_LOG.md, CHANGELOG.md, CLAUDE.md pointer, ROLLOUT-CHECKLIST.md, `.githooks/pre-commit`, `.github/workflows/changelog-check.yml`, `core.hooksPath=.githooks`). Added a ProjectPix card (after Front Office, waitlist CTA → projectpix.io) and a ProjectPix entry in `llms.txt`.
 - Decisions: Front Office appears only in the home "What We Build" grid and `llms.txt` (no product page, not on the Labs page), so ProjectPix was added to those two places only. Copy limited to shipped features; no CRM Services mention; no integrations/desktop/dev-site/pricing claims (handoff rules).
