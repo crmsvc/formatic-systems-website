@@ -6,6 +6,12 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Changed
+- 2026-10-27 — **Admin console spec v1 marked superseded.** Johnny approved it. The approved v2
+  and the Phase 1 plan now live in the new `formatic-console` repo
+  (`C:\Users\John Torres\Documents\GitHub\formatic-console`). **Why:** spec decision D3 says
+  the console does not live in this public marketing repo.
+
 ### Added
 - 2026-11-08 — **ReferralPro page and card.** New page `app/referralpro/page.tsx` (`/referralpro`) and a
   ReferralPro card in the "What We Build" grid linking to it. The page's one primary button goes to the
@@ -30,6 +36,12 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 - 2026-10-31 — **claude-seo is the primary SEO tool** (`.claude/settings.json` enables the plugin for local and cloud sessions; CLAUDE.md "SEO tooling" section). **Why:** Johnny wants one best SEO tool by default. No site code changed.
 
 ### Added
+- 2026-10-26 — **Spec draft: Formatic Admin Console + Formatic Core**
+  (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`).
+  **Why:** Johnny skipped the brainstorm questions and asked for a spec to react to. It takes
+  Claude's calls on D1–D6 (Core owns billing; one Stripe account, a product per app; new
+  `formatic-console` repo; link accounts now, shared login later; Phases 1–2 first;
+  `admin.formaticsystems.com`). Draft only, awaiting approval; nothing built.
 - 2026-10-26 — **Hand-off: Formatic Admin Console** (`docs/handoffs/CC-HANDOFF-2026-10-26-formatic-admin-console.md`).
   **Why:** Johnny wants one Formatic-level admin/dev console for every SaaS app (accounts,
   subscriptions, beta approvals, feature access unlocked automatically on payment or toggled by
