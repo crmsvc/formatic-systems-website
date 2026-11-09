@@ -7,6 +7,23 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 ## [Unreleased]
 
 ### Added
+- 2026-11-08 — **ReferralPro page and card.** New page `app/referralpro/page.tsx` (`/referralpro`) and a
+  ReferralPro card in the "What We Build" grid linking to it. The page's one primary button goes to the
+  waitlist at `https://referralpro-formatic-labs.vercel.app/beta?ref=formaticsystems` (the `ref` tags the
+  source), with a small "Already invited? Sign in" link. Name and URLs live in `lib/referralpro.ts` so the
+  working name is a one-line swap. **Why:** ReferralPro has no domain yet, so formaticsystems.com hosts a
+  temporary page (handoff 2026-11-08). Private beta: no pricing, no public-availability promise, no
+  customer names, industry-neutral copy.
+- 2026-11-08 — **`/sitemap.xml`** (`app/sitemap.ts`) listing `/`, `/referralpro`, `/lab/culture`. **Why:** the
+  site had no sitemap and now has more than one page.
+- 2026-11-08 — ReferralPro entries in `public/llms.txt` (What We Build + Pages).
+
+### Changed
+- 2026-11-08 — "Open Resources" card no longer spans the full row (six cards fill the grid evenly). On-site
+  card links now navigate in the same tab via `next/link`; external ones still open a new tab. The nav's
+  "Formatic Systems" brand now links home. **Why:** fit the sixth card and give `/referralpro` a way back.
+
+### Added
 - 2026-10-31 — `.claude/settings.json` enables the **superpowers** plugin (`superpowers@claude-plugins-official`, obra/superpowers) so cloud sessions get the same brainstorming / planning / TDD / debugging / verification skills as local ones. **Why:** Johnny wants superpowers in every session on every project, local or cloud. No site code changed.
 
 ### Added

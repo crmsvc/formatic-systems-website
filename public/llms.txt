@@ -10,8 +10,8 @@ Key facts for AI assistants:
 
 - Canonical domain: https://formaticsystems.com (formatic.works permanently
   redirects here — both names refer to the same company)
-- The site is a single page; the sections below are anchors on it, plus one
-  standalone Labs preview page
+- The home page is a single page; the sections below are anchors on it. There
+  is also a ReferralPro product page and one standalone Labs preview page
 - Contact: contact@formaticsystems.com, or the contact form on the home page
 - This file is the machine-readable index for the site. Per-page markdown
   variants, llms-full.txt, and an MCP server are planned but not yet live.
@@ -28,6 +28,11 @@ AI products and services designed for how businesses actually operate:
   works offline, keeps originals untouched under markup, and gives each
   project one shareable client link. AI tags and captions are built in.
   Private beta — join the waitlist at https://projectpix.io
+- **ReferralPro** (working name) — Referral programs for service businesses.
+  Customers share a personal link or QR code, the business sees every
+  referral from first click to finished job, and rewards (a gift card or a
+  credit on the next job) go out on rules the business sets. Private beta —
+  details and waitlist at https://formaticsystems.com/referralpro
 - **Knowledge Engine** — RAG-powered document intelligence. One knowledge
   base, multiple interfaces, consistent answers everywhere.
 - **Internal Tools** — Employee-facing search and knowledge retrieval. Your
@@ -48,5 +53,7 @@ Some experiments grow into products; most just get to be interesting.
 
 - [Home](https://formaticsystems.com/): hero, What We Build, Formatic Labs,
   and Get in Touch (contact form + email)
+- [ReferralPro](https://formaticsystems.com/referralpro): product page for
+  the ReferralPro private beta, with the waitlist link
 - [Culture](https://formaticsystems.com/lab/culture): interactive Labs
   preview (self-contained page)

@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mic, Camera, Brain, Search, Wrench } from "lucide-react";
+import Link from "next/link";
+import { Mic, Camera, Gift, Brain, Search, Wrench } from "lucide-react";
+import { REFERRALPRO_NAME, REFERRALPRO_PATH, REFERRALPRO_SUMMARY } from "@/lib/referralpro";
 
 type Product = {
   icon: typeof Mic;
@@ -27,6 +29,14 @@ const products: Product[] = [
     cta: { label: "Join the waitlist", href: "https://projectpix.io" },
   },
   {
+    icon: Gift,
+    title: REFERRALPRO_NAME,
+    description: REFERRALPRO_SUMMARY,
+    // Private beta, same rule as ProjectPix. Links to the on-site page
+    // (no own domain yet), which carries the waitlist button.
+    cta: { label: "Join the waitlist", href: REFERRALPRO_PATH },
+  },
+  {
     icon: Brain,
     title: "Knowledge Engine",
     description:
@@ -43,8 +53,8 @@ const products: Product[] = [
     title: "Open Resources",
     description:
       "Tools we use in-house, made available to you. RAG Digestor, file optimizers, and more coming soon.",
-    // Fifth card: span the full row so the 2-column grid stays even.
-    wide: true,
+    // Six cards fill the 2-column grid evenly, so no card needs `wide` now.
+    // Set `wide: true` on the last card again if the count goes odd.
   },
 ];
 
@@ -101,17 +111,28 @@ export function WhatWeBuild() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {product.description}
               </p>
-              {product.cta && (
-                <a
-                  href={product.cta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
-                >
-                  {product.cta.label}
-                  <span aria-hidden="true">→</span>
-                </a>
-              )}
+              {product.cta &&
+                // External links open in a new tab; on-site pages (e.g.
+                // /referralpro) navigate normally via next/link.
+                (product.cta.href.startsWith("http") ? (
+                  <a
+                    href={product.cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                  >
+                    {product.cta.label}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                ) : (
+                  <Link
+                    href={product.cta.href}
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                  >
+                    {product.cta.label}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                ))}
             </motion.div>
           ))}
         </motion.div>
