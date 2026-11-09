@@ -3,7 +3,7 @@
 
 ## Current state (one glance)
 - Status: Live marketing site: home page, Labs page, ProjectPix card, and (since 2026-11-08) a ReferralPro card plus the `/referralpro` page and `/sitemap.xml`. All on `main` (fa64a64) and deployed.
-- Last session: 2026-11-08 on CC
+- Last session: 2026-11-08 (evening) on CC
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; https://formaticsystems.com/lab/culture; GitHub `crmsvc/formatic-systems-website`
 - ⚠ This copy of the log is on branch `docs/admin-console-spec`, which is behind `main`. The `main` copy of PROJECT_LOG.md has the full 2026-11-08 entry; merge `main` into this branch (or this branch into `main`) to reunite them.
 - Next action: decide whether `docs/admin-console-spec` (spec v1 + superseded banner, docs only) merges to `main` or is deleted.
@@ -25,6 +25,12 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-08 (later) · CC · Claude
+- Done: checked for conflict with the ReferralPro session (`ReferralPro - MAIN`). None: it works only in the ReferralPro repo; its "trademark: use ReferralPro on a public page?" question was already answered by Johnny ("fine for the test run", ReferralPro commit dd61dfb) and this site follows it. Confirmed live: formaticsystems.com/referralpro 200, home card present, main at fa64a64.
+- Decisions: none new. Account/dashboard pages live in the ReferralPro app, not on this site; only the landing page belongs here.
+- Docs created/moved: none.
+- Open: the ReferralPro session may later spin up its own "build the formaticsystems.com page" task; it has not been told the page is live (offered to Johnny, not sent). Its app has a `/pricing` page that may conflict with "no pricing until launch" (unchecked; ReferralPro session's call).
+- Next: decide the fate of branch `docs/admin-console-spec`.
 ### 2026-11-08 · CC · Claude
 - Done: built and shipped the temporary ReferralPro page + card from the ReferralPro handoff (`app/referralpro/page.tsx`, `lib/referralpro.ts`, card in `components/what-we-build.tsx`, `app/sitemap.ts`, `public/llms.txt`, nav brand links home). Build passed; verified live at formaticsystems.com/referralpro and /sitemap.xml.
 - Decisions: Johnny approved the merge ("Yes, merge and push"); fast-forwarded `feat/referralpro-page-2026-11-08` to `main` (fa64a64). No nav/footer link for ReferralPro; the card is the entry point.
