@@ -28,7 +28,7 @@
 ### 2026-11-08 · CC · Claude
 - Done: built and shipped the temporary ReferralPro page + card from the ReferralPro handoff (`app/referralpro/page.tsx`, `lib/referralpro.ts`, card in `components/what-we-build.tsx`, `app/sitemap.ts`, `public/llms.txt`, nav brand links home). Build passed; verified live at formaticsystems.com/referralpro and /sitemap.xml.
 - Decisions: Johnny approved the merge ("Yes, merge and push"); fast-forwarded `feat/referralpro-page-2026-11-08` to `main` (fa64a64). No nav/footer link for ReferralPro; the card is the entry point.
-- Docs created/moved: none beyond code; CHANGELOG.md + PROJECT_LOG.md updated on `main`. Handoff read from `G:\.shortcut-targets-by-idnfbqpU3qns0K45KAMBSfDdT0RxLYRsuA\claude-deliverables\Formatic\ReferralPro\CC-HANDOFF-2026-11-08-formatic-site-referralpro-landing-page.md`. Worktree `.claude/worktrees/referralpro` still exists (can be removed).
+- Docs created/moved: none beyond code; CHANGELOG.md + PROJECT_LOG.md updated on `main`. Handoff read from `G:\.shortcut-targets-by-id\1nfbqpU3qns0K45KAMBSfDdT0RxLYRsuA\claude-deliverables\Formatic\ReferralPro\CC-HANDOFF-2026-11-08-formatic-site-referralpro-landing-page.md`. Worktree `.claude/worktrees/referralpro` still exists (can be removed).
 - Next: decide the fate of branch `docs/admin-console-spec`.
 ### 2026-10-27 · CC · Claude
 - **Done:** Johnny approved the admin-console spec. He said there is no chance of selling an app separately (so one Stripe account), the 72-hour fallback is fine, and support may grant access. Created the `formatic-console` repo with spec v2 and the Phase 1 plan, and put a superseded banner on v1 here.
