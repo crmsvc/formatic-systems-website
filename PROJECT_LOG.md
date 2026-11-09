@@ -5,7 +5,7 @@
 - Status: Live marketing site (Next.js + Tailwind v4, Syne font, amber/stone tokens): home page, a static Labs page, a ProjectPix card, and (since 2026-11-08) a ReferralPro card, the temporary `/referralpro` page and `/sitemap.xml`. All on `main` and deployed. Branch `docs/admin-console-spec` merged into `main` 2026-11-08 (docs only).
 - Last session: 2026-11-08 (evening) on CC
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
-- Next action: none queued for this site. Swap the ReferralPro name/domain when decided (see Open items).
+- Next action: tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
 ## Open items / decisions pending
 - [ ] ReferralPro is a **working name**. To rename, edit `lib/referralpro.ts` (card, page, metadata, sitemap read from it) and the ReferralPro lines in `public/llms.txt`. When it gets its own domain, point the card CTA there and 301 `/referralpro` to it.
@@ -24,6 +24,11 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-08 (session close) · CC · Claude
+- Done (whole session): built + shipped the temporary ReferralPro page and card (`main` fa64a64); checked no conflict with the ReferralPro session; merged `docs/admin-console-spec` into `main` (1dc60c0); main checkout now on `main`. Live: https://formaticsystems.com/referralpro.
+- Decisions: Johnny approved both pushes to `main`. "ReferralPro" stays as the working name for now.
+- Docs created/moved: none this close. Leftovers: worktree `.claude/worktrees/referralpro` (branch `feat/referralpro-page-2026-11-08`, fully merged) can be removed; `AGENTS.md` and `.claude/` are untracked in the main checkout (pre-existing, not touched).
+- Next: tell the ReferralPro session the formaticsystems.com page is live so it doesn't build a duplicate.
 ### 2026-11-08 (merge) · CC · Claude
 - Done: merged branch `docs/admin-console-spec` into `main` (Johnny: "merge it"). Brings in the admin-console spec v1 (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`, superseded banner) and the 2026-10-26/27 log and changelog entries. Resolved PROJECT_LOG/CHANGELOG conflicts by keeping both sides; no site code changed.
 - Decisions: none new.
