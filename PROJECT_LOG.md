@@ -3,7 +3,7 @@
 
 ## Current state (one glance)
 - Status: Live marketing site (Next.js + Tailwind v4, Syne font, amber/stone tokens): home page, a static Labs page, a ProjectPix card, and (since 2026-11-08) a ReferralPro card, the temporary `/referralpro` page and `/sitemap.xml`. All on `main` and deployed. Branch `docs/admin-console-spec` merged into `main` 2026-11-08 (docs only).
-- Last session: 2026-11-08 (evening) on CC
+- Last session: 2026-11-11 on CC (admin-console go-live; that work lives in formatic-console)
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
 - Next action: tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
@@ -24,6 +24,14 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-11 · CC · Claude (admin-console session)
+- Done: no site changes in this repo. This session started here, but the console work lives in `C:\Users\John Torres\Documents\GitHub\formatic-console`:
+  - Phase 1 was built and reviewed.
+  - The Supabase project `formatic-core` was created ($10/mo, approved).
+  - Johnny saved the production keys in `formatic-console\.env.production.local`. Both are verified working.
+- Decision: Upstash rate limiting is skipped for now (only app servers holding a secret key reach Core's intake).
+- Docs created/moved: none here. The console log is `formatic-console\PROJECT_LOG.md`.
+- Next (in formatic-console): Johnny sets the Supabase Auth settings and OKs merging `feat/phase-1` → `main`. Then Claude creates the Vercel project for `admin.formaticsystems.com`.
 ### 2026-11-08 (session close) · CC · Claude
 - Done (whole session): built + shipped the temporary ReferralPro page and card (`main` fa64a64); checked no conflict with the ReferralPro session; merged `docs/admin-console-spec` into `main` (1dc60c0); main checkout now on `main`. Live: https://formaticsystems.com/referralpro.
 - Decisions: Johnny approved both pushes to `main`. "ReferralPro" stays as the working name for now.
