@@ -5,7 +5,7 @@
 - Status: Live marketing site (Next.js + Tailwind v4, Syne font, amber/stone tokens): home page, a static Labs page, a ProjectPix card, and (since 2026-11-08) a ReferralPro card, the temporary `/referralpro` page and `/sitemap.xml`. All on `main` and deployed. Branch `docs/admin-console-spec` merged into `main` 2026-11-08 (docs only).
 - Last session: 2026-11-11 on CC (admin-console go-live; that work lives in formatic-console)
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
-- **Branch waiting for review (2026-11-15):** `claude/front-office-pages-7ba3a8`, a pull request against `main`, NOT merged: the first Front Office section (`/front-office`, `/front-office/docs`, `/front-office/developers`). Merging deploys it; that is Johnny's call.
+- **Branch waiting for review (2026-11-15):** `claude/front-office-pages-7ba3a8`, pull request https://github.com/crmsvc/formatic-systems-website/pull/2 against `main`, NOT merged: the first Front Office section (`/front-office`, `/front-office/docs`, `/front-office/developers`). Merging deploys it; that is Johnny's call.
 - Next action: Johnny reviews the Front Office pull request (wording, and the judgement calls in the 2026-11-15 session entry); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
 ## Open items / decisions pending
@@ -29,7 +29,7 @@
 
 ## Session log (newest first — never delete, only prepend)
 ### 2026-11-15 · CC · Claude (side session started by the Front Office planning session)
-- **Done:** built the first Front Office section on branch `claude/front-office-pages-7ba3a8` (worktree `.claude/worktrees/front-office-pages-7ba3a8`), pushed, a pull request opened against `main`, **not merged**.
+- **Done:** built the first Front Office section on branch `claude/front-office-pages-7ba3a8` (worktree `.claude/worktrees/front-office-pages-7ba3a8`), pushed, pull request https://github.com/crmsvc/formatic-systems-website/pull/2 opened against `main`, **not merged**. Vercel preview: https://formatic-systems-website-git-claude-front-43e423-formatic-labs.vercel.app/front-office.
   - `/front-office`: product page, twelve features tagged "Built, in testing" or "Coming", "Tell me when it's ready" form (posts to the existing `/api/contact`).
   - `/front-office/docs` + five articles: what it is and how it answers; who it talks to and approvals; connecting your tools; setting up agents (coming); after hours (coming).
   - `/front-office/developers`: connecting through a remote MCP server, what makes a tool easy to approve, "Ask to be listed" form → `app/api/front-office/marketplace-apply/route.ts` (Resend).
