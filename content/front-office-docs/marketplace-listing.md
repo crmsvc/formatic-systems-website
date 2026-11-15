@@ -1,12 +1,18 @@
 ---
-title: Marketplace listing
-description: What the Marketplace is, what is in it today, and how to ask for your platform to be listed.
+title: "Marketplace listing"
+description: "What the Marketplace is, what is in it today, and how to ask for your platform to be listed."
+tier: public
 section: developers
 order: 3
 status: coming
 updated: 2026-11-15
 form: marketplace-apply
+answer_cards:
+  - question: "Can my company be listed in the {{name}} Marketplace?"
+    answer: "Not yet. Today the Marketplace holds only connections Formatic built itself. Listings for other platforms are a later step, and the process is not open. You can send a request now with your company, a contact email, your server address and what your tools do. A person reads every request. Sending one does not list your platform, and businesses can already add your server by its address."
 ---
+
+The Marketplace is the page where a business owner connects a tool with one click. Listings for other platforms are not open yet. You can send a request now; a person reads every one, and sending it does not list your platform.
 
 ## What the Marketplace is
 
@@ -30,7 +36,7 @@ Every request is read by a person. Sending one does not list your platform, and 
 
 ## What to send
 
-The form below asks for:
+The request form asks for:
 
 - Your company name and a contact email.
 - The address of your MCP server (https).
@@ -40,3 +46,5 @@ The form below asks for:
 Product names belong to their owners. Naming a product on these pages means a connection to it exists or is planned; it does not mean that company endorses or is affiliated with Formatic Systems.
 
 ## Ask to be listed
+
+Fill in the request form on the Marketplace listing page. The request goes to Formatic for review, and sending it does not list your platform.

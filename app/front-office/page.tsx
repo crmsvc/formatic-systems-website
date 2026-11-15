@@ -14,6 +14,7 @@ import {
   Moon,
   Smartphone,
   Sunrise,
+  BookOpenCheck,
 } from "lucide-react";
 import { NotLaunchedNote, StatusTag } from "@/components/front-office/section-shell";
 import { NotifyForm } from "@/components/front-office/notify-form";
@@ -77,6 +78,13 @@ const features: Feature[] = [
     title: "Chats on your website",
     description:
       "A chat box you add to your site answers visitors and turns them into leads. If a visitor types a phone number and asks for a call back, that becomes a task for you. It doesn't call a number just because someone typed it.",
+    status: "testing",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "One set of answers, everywhere",
+    description:
+      "Calls, texts and website chat all answer from one set of approved information that you control. Change it once and every customer hears the new answer, however they reach you.",
     status: "testing",
   },
   {

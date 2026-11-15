@@ -1,11 +1,19 @@
 ---
-title: Who it talks to, and what needs your approval
-description: It treats a stranger, a customer and you differently. Here is what each can get, and which actions always wait for your yes.
+title: "Who it talks to, and what needs your approval"
+description: "A stranger, a customer and the owner each get different answers, and risky actions always wait for the owner's yes."
+tier: public
 section: how
 order: 1
 status: testing
 updated: 2026-11-15
+answer_cards:
+  - question: "Will it share my customers' information with anyone who calls?"
+    answer: "No. Someone it does not recognise hears only what the business has made public. A customer can hear about their own appointment after a quick check that it is really them, and money questions need a stricter check first. A matching phone number alone is never enough, because caller ID can be faked. A customer never hears about anyone else's account."
+  - question: "Can it do things without asking the owner first?"
+    answer: "Only small things. Once it has confirmed it is talking to the owner, it can add or move a visit on the calendar, update a contact or create a task, and then it says what it did. Sending a customer a message, anything about money, and cancelling or deleting something always wait. It shows the owner exactly what it is about to do and does nothing until the owner says yes."
 ---
+
+{{name}} works out who it is talking to before it says or does anything. A stranger gets public information only, a customer gets their own details after a check, and the owner and team get more after it confirms who they are. Risky actions always wait for the owner's yes.
 
 ## Three kinds of people
 
@@ -46,4 +54,4 @@ It can notice things worth remembering, such as a customer who prefers afternoon
 
 ## Approvals for agents that work on their own
 
-*Coming.* When you can set up more agents (see [Setting up agents](/docs/setting-up-agents)), each one will have a setting: ask me first, or act on its own. Either way, the risky actions above will still wait in an approvals list for you.
+*Coming.* When you can set up more agents (see [Setting up agents](/docs/setting-up-agents)), each one will have a setting: ask me first, or act on its own. Either way, sending a customer a message, anything about money, and cancelling or deleting something will still wait in an approvals list for you.

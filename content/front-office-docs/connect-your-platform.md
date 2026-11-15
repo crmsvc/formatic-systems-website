@@ -1,18 +1,26 @@
 ---
-title: Connect your platform
-description: If service businesses run on your software, their {{name}} agents can use it too. How a business connects your platform through a remote MCP server.
+title: "Connect your platform"
+description: "How a business that uses {{name}} connects your software through a remote MCP server, in five steps."
+tier: public
 section: developers
 order: 1
 status: testing
 updated: 2026-11-15
+answer_cards:
+  - question: "How can my software work with {{name}}?"
+    answer: "Offer what is called a remote MCP server, reachable over a secure web address. A business owner then adds it by pasting that address into the Marketplace page of their dashboard, and signs in on your page if you require it. No approval from Formatic is needed. Every tool arrives switched off, and the owner reviews each one before it can be used."
 ---
+
+A business connects your platform by pasting the address of your remote MCP server into its dashboard. No approval from us is needed. Every tool arrives switched off, and the owner reviews and turns on each one.
 
 ## Two routes
 
-- **A business adds your MCP server itself.** This needs nothing from us and is described on this page.
+- **A business adds your MCP server itself.** This needs nothing from us. The five steps are listed under "How a business connects your platform".
 - **You ask us to list you in the Marketplace**, where an owner connects with one click. That is a later step: see [Marketplace listing](/docs/marketplace-listing).
 
 ## How a business connects your platform
+
+There are five steps. The first is yours; the business owner does the other four in their dashboard.
 
 ### 1. Offer a remote MCP server
 

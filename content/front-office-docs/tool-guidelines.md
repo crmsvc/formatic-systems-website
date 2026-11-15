@@ -1,11 +1,17 @@
 ---
-title: Tools that are easy to approve
-description: The business owner decides tool by tool. These are the things that get a tool switched on.
+title: "Tools that are easy to approve"
+description: "What gets a tool switched on by the business owner who has to approve it."
+tier: public
 section: developers
 order: 2
 status: testing
 updated: 2026-11-15
+answer_cards:
+  - question: "What makes a tool likely to be approved by a business owner?"
+    answer: "The owner decides tool by tool, so each one should be easy to judge. Give it a name and description a tradesperson can read. Keep tools that only look things up separate from tools that change something. Give each tool one job. Say plainly in the first sentence if it sends a customer a message, moves money, or deletes or cancels anything."
 ---
+
+A tool gets switched on when a business owner can tell at a glance what it does. Use plain names, keep look-ups apart from changes, give each tool one job, and say up front if it sends a message, moves money or deletes something.
 
 ## Names and descriptions a business owner can read
 

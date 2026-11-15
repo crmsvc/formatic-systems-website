@@ -85,6 +85,25 @@ export default async function FrontOfficeDocPage({ params }: Params) {
           dangerouslySetInnerHTML={{ __html: renderFrontOfficeDocHtml(doc) }}
         />
 
+        {/* The answer cards from the top of the markdown file: the short
+            answers the product's own agents will use, shown to readers too. */}
+        <section aria-labelledby="quick-answers" className="mt-12">
+          <h2
+            id="quick-answers"
+            className="scroll-mt-24 text-2xl font-bold tracking-[-0.03em] text-foreground"
+          >
+            Quick answers
+          </h2>
+          <dl className="mt-5 space-y-4">
+            {doc.answerCards.map((card) => (
+              <div key={card.question} className="rounded-xl border border-border bg-card p-5">
+                <dt className="font-semibold text-foreground">{card.question}</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
         {doc.form === "marketplace-apply" && (
           <div id="apply" className="mt-6 scroll-mt-24 rounded-xl border border-border bg-card p-6 sm:p-8">
             <p className="text-sm leading-relaxed text-muted-foreground">

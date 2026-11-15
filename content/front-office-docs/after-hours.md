@@ -1,11 +1,19 @@
 ---
-title: What happens after hours
-description: How calls are handled at night and on weekends today, and the hours and on-call rules that are planned.
+title: "What happens after hours"
+description: "How calls are handled at night and on weekends today, and the business-hours and on-call rules that are planned."
+tier: public
 section: how
 order: 2
 status: coming
 updated: 2026-11-15
+answer_cards:
+  - question: "What happens if someone calls after hours?"
+    answer: "Right now, in testing, the call is answered the same way at any hour. The caller's details are taken and the owner gets a text summary. Rules for business hours are planned and not built yet. When they are, the owner will choose whether the assistant answers as usual at night, takes messages only, or sorts real emergencies from everything else."
+  - question: "Can it reach someone in an emergency?"
+    answer: "Not yet. Emergency handling is designed and not built. The plan is that an urgent call outside business hours will go down a list the owner sets up. It will text and then call each person in turn until someone takes the job. Until that is built, a business should not rely on {{name}} as its emergency line."
 ---
+
+Today, in testing, {{name}} answers the same way at any hour. Business hours, emergency handling and an on-call list are designed and not built, so it should not be relied on as an emergency line yet.
 
 ## Today, in testing
 

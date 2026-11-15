@@ -1,11 +1,19 @@
 ---
-title: Connecting your tools
-description: How your calendar, email, books and other software connect, what is switched on when they do, and how to add a tool that isn't on the list.
+title: "Connecting your tools"
+description: "How your calendar, email, books and other software connect, what is switched on when they do, and how to add a tool that isn't on the list."
+tier: public
 section: setup
 order: 1
 status: testing
 updated: 2026-11-15
+answer_cards:
+  - question: "What software does {{name}} work with?"
+    answer: "Three connections are built and in testing. They are Google Calendar and Gmail, QuickBooks Online, and GoHighLevel. Jobber and Housecall Pro are planned. A business can also add other software itself, if that software offers what is called an MCP server, by pasting in an address. None of these is connected to a real business yet, because {{name}} is still in development."
+  - question: "Is it safe to connect my accounts?"
+    answer: "You sign in on the other company's own sign-in page, so your password is never typed into {{name}}. When a tool is first connected, it can only look things up. Anything that changes or sends something stays switched off until you turn it on, and risky actions still wait for your approval each time. Only the owner of the account can connect a tool."
 ---
+
+You connect a tool by signing in to it from the Marketplace page in your dashboard. Look-ups are on from the start; anything that changes or sends something stays off until you switch it on. Google Calendar and Gmail, QuickBooks Online and GoHighLevel are built and in testing.
 
 ## Why connect anything
 
@@ -21,7 +29,7 @@ The Marketplace page in your dashboard lists what can be connected:
 - **QuickBooks Online:** look up customers, invoices, estimates and overdue balances.
 - **GoHighLevel:** look up contacts, opportunities and appointments, and add or update them.
 
-> These three are built and being tested on sample accounts. They are not yet connected to any real business.
+> Google Calendar and Gmail, QuickBooks Online and GoHighLevel are built and being tested on sample accounts. They are not yet connected to any real business.
 
 ## How connecting works
 
@@ -45,7 +53,7 @@ If you build software and want your product to be connectable this way, see [Con
 
 ## Using your tools from your own AI assistant
 
-If you already use an AI assistant yourself, you can let it use the same tools through {{name}}. The same rules apply: risky actions wait in your approvals list.
+If you already use an AI assistant yourself, you can let it use the same tools through {{name}}. Sending a customer a message, anything about money, and cancelling or deleting something still wait in your approvals list.
 
 ## Planned
 

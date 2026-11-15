@@ -1,11 +1,19 @@
 ---
-title: Setting up agents
-description: The two agents every business starts with, and how you will be able to add more for jobs like invoice follow-up and appointment reminders.
+title: "Setting up agents"
+description: "The two agents every business starts with, and how you will be able to add more for jobs like invoice follow-up and appointment reminders."
+tier: public
 section: setup
 order: 2
 status: coming
 updated: 2026-11-15
+answer_cards:
+  - question: "Can I set up my own agents?"
+    answer: "Not yet. Every business starts with two agents, a receptionist for customers and an office manager for the owner and team. The page for adding more is designed and not built. When it is ready, you will describe the job in your own words, choose when it runs and which tools it may use, and decide whether it asks you first or acts on its own."
+  - question: "What kinds of jobs will agents be able to do?"
+    answer: "Ready-made jobs are planned, so you will not start from a blank page. They include a fast reply to a new lead, a text back after a missed call, follow-up on overdue invoices, a reminder the day before a visit, a review request after a job, and a morning summary for the owner. None of these is built yet."
 ---
+
+Every business starts with two agents, a receptionist and an office manager. Adding more, for jobs like invoice follow-up or appointment reminders, will be done by filling in a form. The page for adding agents is designed and not built.
 
 ## The two you start with
 

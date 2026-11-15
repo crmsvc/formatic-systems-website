@@ -23,11 +23,29 @@
 - Backlog: this file's Open items
 - Build spec / CLAUDE.md: `CLAUDE.md` (repo) + global `~/.claude/CLAUDE.md`
 - Design docs: `guides/ui-ux-modernization-blueprint.md`, `guides/ui-ux-modernization-playbook.md`; AI subagent playbook `docs/AI-SUBAGENT-PLAYBOOK.md`
-- Front Office site (own layout under one path): name, domain, base path and the `fo()` link helper `lib/front-office.ts` (steps to move it to its own domain are in that file's header); layout `app/front-office/layout.tsx`; landing page `app/front-office/page.tsx`; help docs `app/front-office/docs/` (`layout.tsx` sidebar, `page.tsx` home, `[slug]/page.tsx` article); help pages as markdown `content/front-office-docs/*.md` (add a file to add a page), read by `lib/front-office-docs.ts`; plain-markdown copies `app/front-office/docs-md/[file]/route.ts` (rewrite in `next.config.ts`); `app/front-office/llms.txt/` and `llms-full.txt/`; nav, footer, status tag `components/front-office/section-shell.tsx`; sidebar and search `components/front-office/docs-sidebar.tsx`; forms `components/front-office/`; listing-request email route `app/front-office/api/marketplace-apply/route.ts`
+- Front Office site (own layout under one path): name, domain, base path and the `fo()` link helper `lib/front-office.ts` (steps to move it to its own domain are in that file's header); layout `app/front-office/layout.tsx`; landing page `app/front-office/page.tsx`; help docs `app/front-office/docs/` (`layout.tsx` sidebar, `page.tsx` home, `[slug]/page.tsx` article); help pages as markdown `content/front-office-docs/*.md` (add a file to add a page; the one source of truth, to be loaded later into Front Office's public knowledge store), read and rule-checked by `lib/front-office-docs.ts` (field list and rules in its header); plain-markdown copies `app/front-office/docs-md/[file]/route.ts` (rewrite in `next.config.ts`); `app/front-office/llms.txt/` and `llms-full.txt/`; nav, footer, status tag `components/front-office/section-shell.tsx`; sidebar and search `components/front-office/docs-sidebar.tsx`; forms `components/front-office/`; listing-request email route `app/front-office/api/marketplace-apply/route.ts`
 - Product cards: `components/what-we-build.tsx`; ReferralPro page `app/referralpro/page.tsx` + name/links `lib/referralpro.ts`; sitemap `app/sitemap.ts`; Labs section: `components/philosophy.tsx`; AI index: `public/llms.txt`
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-15 (third pass) · CC · Claude (same side session; decision from Johnny relayed by the Front Office planning session)
+- **Johnny's decision:** the docs' markdown files are the one source of truth and will later be loaded into Front Office's public knowledge store so its agents answer from them. His words: "yes, one source. the objective is speed and access to information to keep the latency down." The import is not built in this repo; the files were only made ready.
+- **Done (same branch and pull request, not merged):**
+  - All eight files: `tier: public`, a one-sentence `description`, one or two `answer_cards`, a direct-answer opening paragraph, and sections reworded to stand alone.
+  - `lib/front-office-docs.ts` checks those rules at build time and fails the build on a break (the list is in that file's header and in the CHANGELOG entry).
+  - `/front-office/docs/<file name>.md` now starts with the fields as YAML. Pages show the cards as "Quick answers".
+  - Product page: added "One set of answers, everywhere".
+- **Frontmatter fields in the source files:** `title`, `description`, `tier`, `section`, `order`, `status`, `updated`, `answer_cards` (list of `question` + `answer`), and optional `form`. In the served `.md`: `title`, `description`, `tier`, `updated`, `section`, `status`, `url`, `answer_cards` (product name filled in, links as full addresses).
+- **Address pattern:** page `/front-office/docs/<file name>`; markdown `/front-office/docs/<file name>.md`; index `/front-office/llms.txt`; full text `/front-office/llms-full.txt`.
+- **Judgement calls added:**
+  17. Source files keep the `{{name}}` placeholder so a rename stays one line; an import should read the served `.md` addresses (name filled in), not the raw files in the repo.
+  18. Answer cards speak about the product in the third person ("it"), since they will be spoken by the product's own agents about itself. Developer pages got one card each, written for a non-technical asker.
+  19. The cards are also shown on each page ("Quick answers"), so what an agent says and what a reader sees cannot drift apart.
+  20. The section limit is checked as 300 words, standing in for "roughly 400 tokens".
+  21. "One set of approved information you control" is tagged "Built, in testing" on the product page: the build spec's public knowledge store and owner approval of drafted answers are in the built phases. No help-site product and no "Knowledge Engine" feature are mentioned for Front Office.
+- **Verified:** `npm run build` passes with the new checks; ESLint clean on the section's files; all eight source files and the served `.md` files parse as YAML with a standard reader; answers are 58 to 71 words; pages return 200.
+- **Not verified:** unchanged from the entry below (real email send, Vercel preview behind a login, light theme, clipboard copy). Nothing here tests the future import itself.
+- **Next:** unchanged. Johnny reviews the pull request.
 ### 2026-11-15 (later) · CC · Claude (same side session; two additions from Johnny, relayed by the Front Office planning session)
 - **Johnny's words:** "once we decide on the name (i may still keep it Front Office...) we can migrate the site to its own domain. until then however we can treat the build like its the main page." And on docs: "One thing i always liked was the gitbook style of how they create their help session. its very 'AI ready'."
 - **Done (same branch, same pull request, not merged):** rebuilt the section as the product's own site and the docs GitBook-style.

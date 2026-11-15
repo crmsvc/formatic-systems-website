@@ -1,11 +1,19 @@
 ---
-title: What it is, and how it answers
-description: What the product does, and what a customer hears or sees on a phone call, by text and in the chat box on your website.
+title: "What it is, and how it answers"
+description: "What the product does, and what a customer hears or sees on a phone call, by text and in the chat box on your website."
+tier: public
 section: start
 order: 1
 status: testing
 updated: 2026-11-15
+answer_cards:
+  - question: "What is {{name}}?"
+    answer: "{{name}} is a team of AI agents that works as the front office of a small service business. It answers the phone, replies to texts and chats with visitors on the business's website. It takes down what each customer needs, saves it as a lead with a visit request, and sends the owner a summary. It is still in development and is not available to businesses yet."
+  - question: "What happens when someone calls a business that uses {{name}}?"
+    answer: "The call is picked up right away. The assistant says that it is an AI and that the call is recorded, then answers questions from what the business has published. If the caller needs work done, it takes their name, what they need, the address, a call-back number and how urgent it is. When the call ends, the owner gets a text with those details."
 ---
+
+{{name}} is a team of AI agents that answers a small service business's phone calls, texts and website chat, takes down what each customer needs, and tells the owner what happened. It is in testing and not yet available.
 
 ## What it is
 
@@ -27,7 +35,7 @@ The caller can talk over it and it will stop and listen, the way a person would.
 
 ## By text
 
-A customer who texts your business number gets a short answer back, from the same published information. If they ask for work, it takes the same details as on a call.
+A customer who texts your business number gets a short answer back, from the same published information. If they ask for work, it takes their name, what they need, the address and how urgent it is.
 
 If someone texts STOP or another opt-out word, it stops texting them.
 

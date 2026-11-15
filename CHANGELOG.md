@@ -7,6 +7,25 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 ## [Unreleased]
 
 ### Changed
+- 2026-11-15 — **Front Office help docs made ready to be the one source of truth** (same branch and pull
+  request; still not on `main`). The markdown files in `content/front-office-docs/` will later be loaded
+  into Front Office's public knowledge store; that import is not built here.
+  - Every file now has `tier: public` and one or two `answer_cards` (a `question` a customer would ask and
+    an `answer` of 40 to 120 words written to be spoken aloud) at the top, with a one-sentence `description`.
+  - Every article opens with a short direct answer before its first heading; sections were reworded so
+    each stands on its own (no "see above").
+  - `lib/front-office-docs.ts` fails the build when a file is not `tier: public`, has no answer card, has an
+    answer outside 40 to 120 words or with a link or list in it, does not open with a direct answer, has a
+    section over 300 words (about 400 tokens), or says "see above/below" or uses a picture.
+  - The plain-markdown address of each page (`/front-office/docs/<file name>.md`) now starts with those
+    fields as YAML (`title`, `description`, `tier`, `updated`, `section`, `status`, `url`, `answer_cards`).
+    Each page shows its cards as "Quick answers"; `llms-full.txt` and "Copy as markdown" include them as text.
+  - Product page: new feature "One set of answers, everywhere" (answers come from one set of approved
+    information the business controls). No hosted help-site product is announced.
+  **Why:** Johnny, 2026-11-15: "yes, one source. the objective is speed and access to information to keep
+  the latency down."
+
+### Changed
 - 2026-11-15 — **Front Office section rebuilt as the product's own site, with GitBook-style help docs**
   (same branch and pull request; still not on `main`). Replaces the first version from earlier the same day.
   - **Own site under one path.** `app/front-office/layout.tsx` gives everything under `/front-office` its own
