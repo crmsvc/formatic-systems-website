@@ -9,7 +9,7 @@
 - Next action: Johnny reviews the Front Office pull request (wording, and the judgement calls in the 2026-11-15 session entry); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
 ## Open items / decisions pending
-- [ ] **Front Office pages: Johnny's review and merge** (branch `claude/front-office-pages-7ba3a8`). Decisions for him: (1) whether a platform that asks for a Marketplace listing is listed after his review (built this way, the unconfirmed default) or automatically; (2) the Front Office build spec says its public site never shows the codename, yet this site shows "Front Office" on the card and now on three pages, so either accept that for now or give a public name (one line in `lib/front-office.ts`, plus the Front Office lines in `public/llms.txt`; the route folder `app/front-office/` would need a rename and a redirect); (3) confirm `RESEND_API_KEY` is set for Vercel Preview as well as Production, or the two forms only send on production.
+- [ ] **Front Office pages: Johnny's review and merge** (branch `claude/front-office-pages-7ba3a8`). Decisions for him: (1) DECIDED by Johnny 2026-11-15, "Yes, review first": a platform that asks for a Marketplace listing is listed only after his review, as built; (2) the Front Office build spec says its public site never shows the codename, yet this site shows "Front Office" on the card and now on three pages, so either accept that for now or give a public name (one line in `lib/front-office.ts`, plus the Front Office lines in `public/llms.txt`; the route folder `app/front-office/` would need a rename and a redirect); (3) confirm `RESEND_API_KEY` is set for Vercel Preview as well as Production, or the two forms only send on production.
 - [ ] Front Office help docs were checked against the Front Office build as of 2026-11-15 (Phases 0 to 5 built, on sample data). When a phase lands there, update the status tags: the features in `app/front-office/page.tsx` and the `status:` line at the top of each file under `content/front-office-docs/`.
 - [ ] ReferralPro is a **working name**. To rename, edit `lib/referralpro.ts` (card, page, metadata, sitemap read from it) and the ReferralPro lines in `public/llms.txt`. When it gets its own domain, point the card CTA there and 301 `/referralpro` to it.
 - **Formatic Admin Console has moved out of this repo (2026-10-27).** The work lives in `formatic-labs/formatic-console`, locally at `C:\Users\John Torres\Documents\GitHub\formatic-console`; read its PROJECT_LOG. The v1 draft here (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`) is superseded and carries a banner.
@@ -28,6 +28,11 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-15 (decision) · CC · Claude + Johnny
+- **Decision (Johnny, in this session):** "Yes, review first". A platform that asks for a Marketplace listing is listed only after a person at Formatic reviews the request. Nothing is listed automatically. The site was already built this way, so no page or code changed; the open item and judgement call 1 are marked decided.
+- **Docs created/moved:** none.
+- **Still open for Johnny:** the codename on public pages (he has said it may stay "Front Office"), and whether `RESEND_API_KEY` is set for Vercel Preview.
+- **Next:** Johnny reviews and merges https://github.com/crmsvc/formatic-systems-website/pull/2.
 ### 2026-11-15 (third pass) · CC · Claude (same side session; decision from Johnny relayed by the Front Office planning session)
 - **Johnny's decision:** the docs' markdown files are the one source of truth and will later be loaded into Front Office's public knowledge store so its agents answer from them. His words: "yes, one source. the objective is speed and access to information to keep the latency down." The import is not built in this repo; the files were only made ready.
 - **Done (same branch and pull request, not merged):**
@@ -72,7 +77,7 @@
   - Home card links to `/front-office`; sitemap and `public/llms.txt` updated; name and paths in `lib/front-office.ts`.
 - **Facts came from** the Front Office repo at `origin/main` (build spec v2.0, addendum 02, owner-app design, PROJECT_LOG Streams table). No text was copied and nothing in that repo was touched. Built there as of today: Phases 0 to 5 (calls, texts, web chat, dashboard, connectors, add-your-own MCP server), all on sample data. Not built: agents area, outbound, call rules and after-hours, owner phone app, Jobber and Housecall Pro.
 - **Judgement calls (Claude's, for Johnny to confirm):**
-  1. A listing request goes to a person for review; nothing is automatic. This is the recommended default, not a decision Johnny has made.
+  1. A listing request goes to a person for review; nothing is automatic. This was the recommended default; **Johnny confirmed it on 2026-11-15 ("Yes, review first").**
   2. Help articles are typed data files (`content/front-office-docs/*.ts`), not Markdown: the repo had no content pattern and no Markdown package, and this adds no dependency.
   3. The route is `/front-office` (the codename), following `/referralpro`. The build spec says the product's own public site never shows the codename; this site already did on the home card.
   4. "Built, in testing" is used for what exists on sample data; the pages say plainly that no business uses it.

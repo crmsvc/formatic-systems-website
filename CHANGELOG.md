@@ -6,6 +6,12 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Decided
+- 2026-11-15 — **Marketplace listing requests are review-first** (Johnny: "Yes, review first"). A request
+  from another platform is read by a person at Formatic before anything is listed; nothing is automatic.
+  The Front Office docs page "Marketplace listing" and its request form were already built this way, so
+  no page or code changed. **Why:** recorded so the default that was built is no longer an open question.
+
 ### Changed
 - 2026-11-15 — **Front Office help docs made ready to be the one source of truth** (same branch and pull
   request; still not on `main`). The markdown files in `content/front-office-docs/` will later be loaded
