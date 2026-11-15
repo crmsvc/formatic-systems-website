@@ -127,3 +127,81 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* Front Office help docs: styles for an article rendered from markdown
+   (the .fo-prose box in app/front-office/docs/[slug]/page.tsx). Uses the
+   site's own colour tokens; no new colours or fonts. */
+.fo-prose {
+  color: var(--muted-foreground);
+  line-height: 1.75;
+}
+.fo-prose > * + * {
+  margin-top: 1.25rem;
+}
+.fo-prose h2 {
+  margin-top: 3rem;
+  scroll-margin-top: 6rem;
+  color: var(--foreground);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+.fo-prose h3 {
+  margin-top: 2rem;
+  scroll-margin-top: 6rem;
+  color: var(--foreground);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+.fo-prose > :first-child {
+  margin-top: 0;
+}
+.fo-prose strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.fo-prose a {
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-underline-offset: 4px;
+}
+.fo-prose a:hover {
+  color: var(--primary);
+}
+.fo-prose ul,
+.fo-prose ol {
+  padding-left: 1.4rem;
+}
+.fo-prose ul {
+  list-style: disc;
+}
+.fo-prose ol {
+  list-style: decimal;
+}
+.fo-prose li + li {
+  margin-top: 0.6rem;
+}
+.fo-prose li::marker {
+  color: var(--primary);
+  font-weight: 600;
+}
+/* A blockquote is used for "not available yet" notes. */
+.fo-prose blockquote {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--card);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.fo-prose code {
+  border-radius: 0.25rem;
+  background: var(--muted);
+  padding: 0.1rem 0.35rem;
+  font-size: 0.875em;
+}

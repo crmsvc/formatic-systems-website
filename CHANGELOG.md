@@ -6,6 +6,82 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Decided
+- 2026-11-15 — **Marketplace listing requests are review-first** (Johnny: "Yes, review first"). A request
+  from another platform is read by a person at Formatic before anything is listed; nothing is automatic.
+  The Front Office docs page "Marketplace listing" and its request form were already built this way, so
+  no page or code changed. **Why:** recorded so the default that was built is no longer an open question.
+
+### Changed
+- 2026-11-15 — **Front Office help docs made ready to be the one source of truth** (same branch and pull
+  request; still not on `main`). The markdown files in `content/front-office-docs/` will later be loaded
+  into Front Office's public knowledge store; that import is not built here.
+  - Every file now has `tier: public` and one or two `answer_cards` (a `question` a customer would ask and
+    an `answer` of 40 to 120 words written to be spoken aloud) at the top, with a one-sentence `description`.
+  - Every article opens with a short direct answer before its first heading; sections were reworded so
+    each stands on its own (no "see above").
+  - `lib/front-office-docs.ts` fails the build when a file is not `tier: public`, has no answer card, has an
+    answer outside 40 to 120 words or with a link or list in it, does not open with a direct answer, has a
+    section over 300 words (about 400 tokens), or says "see above/below" or uses a picture.
+  - The plain-markdown address of each page (`/front-office/docs/<file name>.md`) now starts with those
+    fields as YAML (`title`, `description`, `tier`, `updated`, `section`, `status`, `url`, `answer_cards`).
+    Each page shows its cards as "Quick answers"; `llms-full.txt` and "Copy as markdown" include them as text.
+  - Product page: new feature "One set of answers, everywhere" (answers come from one set of approved
+    information the business controls). No hosted help-site product is announced.
+  **Why:** Johnny, 2026-11-15: "yes, one source. the objective is speed and access to information to keep
+  the latency down."
+
+### Changed
+- 2026-11-15 — **Front Office section rebuilt as the product's own site, with GitBook-style help docs**
+  (same branch and pull request; still not on `main`). Replaces the first version from earlier the same day.
+  - **Own site under one path.** `app/front-office/layout.tsx` gives everything under `/front-office` its own
+    navigation and footer (`components/front-office/section-shell.tsx`) instead of the Formatic Systems ones.
+    Every link inside the section is written with `fo("/…")` from `lib/front-office.ts`; moving to its own
+    domain is two constants (`FRONT_OFFICE_ORIGIN`, `FRONT_OFFICE_BASE`) plus copying the folders listed there.
+    The listing-request route moved inside the section: `app/front-office/api/marketplace-apply/route.ts`.
+  - **Help docs are markdown files.** One `.md` file per page in `content/front-office-docs/`, with a few
+    lines at the top (title, description, section, order, status, date). Adding a page is adding a file;
+    `lib/front-office-docs.ts` reads them. The typed article files from the first version were removed.
+  - **Docs behaviour:** left sidebar of sections and pages, an "On this page" contents list, previous/next
+    links, and search across every page (runs in the browser; nothing is sent anywhere).
+  - **AI-ready:** every page is also plain markdown at its address plus `.md`
+    (`app/front-office/docs-md/[file]/route.ts` behind a rewrite in `next.config.ts`), each page has
+    "Copy as markdown" and "View as markdown", and the docs have `/front-office/llms.txt` and
+    `/front-office/llms-full.txt`, generated from the same files. Pages carry a `text/markdown` alternate link.
+  - **Developer pages are a docs section** ("For developers": Connect your platform, Tools that are easy to
+    approve, Marketplace listing). The listing request form sits at the bottom of "Marketplace listing".
+    `/front-office/developers` redirects to the section; the standalone developer page was removed.
+  - New dependency: `marked` (markdown to HTML at build time). Article styles: `.fo-prose` in
+    `app/globals.css`, using the existing colour tokens.
+  **Why:** Johnny, 2026-11-15: treat the section as the product's main site until it moves to its own
+  domain, and make the help docs work the way GitBook's do, "AI ready".
+
+### Added
+- 2026-11-15 — **Front Office section (first version, on a branch for review; not on `main`).** Three areas,
+  linked from the Front Office card on the home page ("See what it does"):
+  - **Product page** `/front-office` (`app/front-office/page.tsx`): what it does for a small service business,
+    twelve features each tagged "Built, in testing" or "Coming", who it's for, what it isn't, and a
+    "Tell me when it's ready" form (`components/front-office/notify-form.tsx`) that posts to the existing
+    `/api/contact`. No prices, dates, customer counts or sign-up.
+  - **Help docs** `/front-office/docs` and `/front-office/docs/[slug]`: five articles for business owners.
+    Each article is one file in `content/front-office-docs/`; to add one, add a file and one line in
+    `content/front-office-docs/index.ts` (the index page, article page, metadata and sitemap read that list).
+  - **Developer page** `/front-office/developers`: how a platform is connected through a remote MCP server
+    (five steps), what makes a tool easy to approve, and an "Ask to be listed" form
+    (`components/front-office/marketplace-apply-form.tsx` → `app/api/front-office/marketplace-apply/route.ts`)
+    that emails a request for review through Resend. Uses the same env values as the contact form
+    (`RESEND_API_KEY`, optional `CONTACT_EMAIL`); without the key it returns 503, sends nothing, and the form
+    tells the visitor to email instead. No endpoint addresses are published.
+  - `lib/front-office.ts` holds the name (a codename), paths, summary and status labels, so a rename is one line.
+  - Sitemap rows for the new pages; Front Office entries in `public/llms.txt`.
+  **Why:** Johnny, 2026-11-14: host the Front Office pages on formaticsystems.com for now, starting with
+  features, help docs and a developer page where other platforms can ask to be listed. Public-tier content
+  only; anything not built is marked "Coming".
+
+### Changed
+- 2026-11-15 — The Front Office card on the home page reads its title from `lib/front-office.ts` and now has
+  a link to `/front-office`. **Why:** the card had no destination, and the name is a codename.
+
 ### Changed
 - 2026-10-27 — **Admin console spec v1 marked superseded.** Johnny approved it. The approved v2
   and the Phase 1 plan now live in the new `formatic-console` repo
