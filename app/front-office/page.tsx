@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import {
   Phone,
@@ -17,34 +15,37 @@ import {
   Smartphone,
   Sunrise,
 } from "lucide-react";
-import { FrontOfficeHeader, NotLaunchedNote, StatusTag } from "@/components/front-office/section-shell";
+import { NotLaunchedNote, StatusTag } from "@/components/front-office/section-shell";
 import { NotifyForm } from "@/components/front-office/notify-form";
 import {
-  FRONT_OFFICE_DEVELOPERS_PATH,
-  FRONT_OFFICE_DOCS_PATH,
+  FRONT_OFFICE_DEVELOPERS_DOC,
   FRONT_OFFICE_NAME,
-  FRONT_OFFICE_PATH,
+  FRONT_OFFICE_STATUS,
   FRONT_OFFICE_SUMMARY,
+  fo,
+  foUrl,
   type FrontOfficeStatus,
 } from "@/lib/front-office";
 
-// Product page for Front Office (codename; name comes from lib/front-office.ts).
+// Landing page of the Front Office site (name comes from lib/front-office.ts).
+// Navigation and footer come from app/front-office/layout.tsx.
 // NOT LAUNCHED: no prices, dates, customer counts or results, and no way to
 // buy. Every feature carries a status: built and in testing, or coming.
 // Public-tier facts only: nothing about how it is built or which vendors
 // are behind it.
 
-const title = `${FRONT_OFFICE_NAME} | Formatic Systems`;
+const title = `${FRONT_OFFICE_NAME}: the front office for a small service business`;
 
 export const metadata: Metadata = {
-  title,
+  // `absolute` so the layout's "| name" ending is not added twice.
+  title: { absolute: title },
   description: FRONT_OFFICE_SUMMARY,
-  alternates: { canonical: FRONT_OFFICE_PATH },
+  alternates: { canonical: foUrl("/") },
   openGraph: {
     title,
     description: FRONT_OFFICE_SUMMARY,
-    url: `https://formaticsystems.com${FRONT_OFFICE_PATH}`,
-    siteName: "Formatic Systems",
+    url: foUrl("/"),
+    siteName: FRONT_OFFICE_NAME,
     type: "website",
   },
 };
@@ -153,14 +154,25 @@ const notThis = [
 export default function FrontOfficePage() {
   return (
     <>
-      <Nav />
       <main>
-        <FrontOfficeHeader
-          current={FRONT_OFFICE_PATH}
-          title="The office you can't afford to hire yet"
-          lead="When you're on a job, nobody is answering the phone. This is a team of AI agents that does: it picks up calls, texts and website chat, takes down the lead, books the visit request, and tells you what happened. You stay in charge of anything that matters."
-        >
-          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
+        {/* Hero */}
+        <section className="relative overflow-hidden px-6 pt-36 pb-16">
+          <div className="pointer-events-none absolute -top-40 right-0 h-[600px] w-[600px] rounded-full bg-primary/5 blur-3xl" />
+          <div className="relative mx-auto max-w-6xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              {FRONT_OFFICE_STATUS}
+            </span>
+            <h1 className="mt-6 max-w-3xl text-5xl font-bold leading-[1.05] tracking-[-0.035em] text-foreground sm:text-6xl">
+              The office you can&apos;t afford to hire yet
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              When you&apos;re on a job, nobody is answering the phone. {FRONT_OFFICE_NAME} is a
+              team of AI agents that does: it picks up calls, texts and website chat, takes down
+              the lead, books the visit request, and tells you what happened. You stay in charge
+              of anything that matters.
+            </p>
+            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
             <Button
               asChild
               size="lg"
@@ -169,24 +181,25 @@ export default function FrontOfficePage() {
               <a href="#notify">Tell me when it&apos;s ready</a>
             </Button>
             <Link
-              href={FRONT_OFFICE_DOCS_PATH}
+              href={fo("/docs")}
               className="text-sm font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary"
             >
               Read how it works
             </Link>
+            </div>
           </div>
-        </FrontOfficeHeader>
+        </section>
 
         {/* Where it stands */}
         <section className="px-6">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-6xl">
             <NotLaunchedNote />
           </div>
         </section>
 
         {/* What it does */}
-        <section className="px-6 py-24">
-          <div className="mx-auto max-w-5xl">
+        <section id="features" className="scroll-mt-16 px-6 py-24">
+          <div className="mx-auto max-w-6xl">
             <h2 className="text-3xl font-bold tracking-[-0.035em] text-foreground sm:text-4xl">
               What it does
             </h2>
@@ -212,7 +225,7 @@ export default function FrontOfficePage() {
 
         {/* Who it's for + what it isn't */}
         <section className="px-6 py-24">
-          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
+          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
             <div>
               <h2 className="text-2xl font-bold tracking-[-0.035em] text-foreground sm:text-3xl">
                 Who it&apos;s for
@@ -241,9 +254,9 @@ export default function FrontOfficePage() {
 
         {/* Where to go next */}
         <section className="px-6 py-8">
-          <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2">
+          <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-2">
             <Link
-              href={FRONT_OFFICE_DOCS_PATH}
+              href={fo("/docs")}
               className="rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/30"
             >
               <h3 className="text-lg font-semibold tracking-tight text-foreground">Help docs</h3>
@@ -253,7 +266,7 @@ export default function FrontOfficePage() {
               </p>
             </Link>
             <Link
-              href={FRONT_OFFICE_DEVELOPERS_PATH}
+              href={fo(FRONT_OFFICE_DEVELOPERS_DOC)}
               className="rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/30"
             >
               <h3 className="text-lg font-semibold tracking-tight text-foreground">For developers</h3>
@@ -267,7 +280,7 @@ export default function FrontOfficePage() {
 
         {/* Get notified */}
         <section id="notify" className="scroll-mt-24 px-6 pt-16 pb-32">
-          <div className="mx-auto max-w-5xl rounded-xl border border-border bg-card p-8 sm:p-12">
+          <div className="mx-auto max-w-6xl rounded-xl border border-border bg-card p-8 sm:p-12">
             <h2 className="text-2xl font-bold tracking-[-0.035em] text-foreground sm:text-3xl">
               Want to hear when it&apos;s ready?
             </h2>
@@ -281,7 +294,6 @@ export default function FrontOfficePage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

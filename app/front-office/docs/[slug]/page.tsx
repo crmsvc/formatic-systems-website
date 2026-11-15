@@ -1,78 +1,45 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
-import { FrontOfficeHeader, StatusTag } from "@/components/front-office/section-shell";
-import { frontOfficeDocs, getFrontOfficeDoc, type DocBlock } from "@/content/front-office-docs";
-import { FRONT_OFFICE_DOCS_PATH, FRONT_OFFICE_NAME } from "@/lib/front-office";
+import { StatusTag } from "@/components/front-office/section-shell";
+import { CopyMarkdownButton } from "@/components/front-office/copy-markdown";
+import { MarketplaceApplyForm } from "@/components/front-office/marketplace-apply-form";
+import {
+  frontOfficeDocMarkdown,
+  getFrontOfficeDoc,
+  getFrontOfficeDocs,
+  renderFrontOfficeDocHtml,
+} from "@/lib/front-office-docs";
+import { FRONT_OFFICE_DOC_SECTIONS, fo, foUrl } from "@/lib/front-office";
 
-// One help article. Content comes from content/front-office-docs/<slug>.ts.
-// Every article is built ahead of time; an unknown slug is a 404.
+// One help article, from content/front-office-docs/<slug>.md. Layout: the
+// article, a contents list of its headings on the right (wide screens), and
+// previous/next links at the bottom. The sidebar comes from the docs layout.
+// Every article is built ahead of time; an unknown address is a 404.
 
 type Params = { params: Promise<{ slug: string }> };
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return frontOfficeDocs.map((d) => ({ slug: d.slug }));
+  return getFrontOfficeDocs().map((d) => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const doc = getFrontOfficeDoc(slug);
   if (!doc) return {};
-  const title = `${doc.title} | ${FRONT_OFFICE_NAME} help`;
-  const path = `${FRONT_OFFICE_DOCS_PATH}/${doc.slug}`;
+  const url = foUrl(`/docs/${doc.slug}`);
   return {
-    title,
-    description: doc.summary,
-    alternates: { canonical: path },
-    openGraph: {
-      title,
-      description: doc.summary,
-      url: `https://formaticsystems.com${path}`,
-      siteName: "Formatic Systems",
-      type: "article",
+    title: doc.title,
+    description: doc.description,
+    alternates: {
+      canonical: url,
+      // Tells assistants and crawlers where the plain-markdown copy is.
+      types: { "text/markdown": `${url}.md` },
     },
+    openGraph: { title: doc.title, description: doc.description, url, type: "article" },
   };
-}
-
-function Block({ block }: { block: DocBlock }) {
-  switch (block.type) {
-    case "p":
-      return <p className="leading-relaxed text-muted-foreground">{block.text}</p>;
-    case "list":
-      return (
-        <ul className="space-y-3 text-muted-foreground">
-          {block.items.map((item) => (
-            <li key={item} className="flex gap-3 leading-relaxed">
-              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      );
-    case "steps":
-      return (
-        <ol className="space-y-3 text-muted-foreground">
-          {block.items.map((item, i) => (
-            <li key={item} className="flex gap-3 leading-relaxed">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                {i + 1}
-              </span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ol>
-      );
-    case "note":
-      return (
-        <p className="rounded-lg border border-border bg-card px-4 py-3 text-sm leading-relaxed text-muted-foreground">
-          {block.text}
-        </p>
-      );
-  }
 }
 
 export default async function FrontOfficeDocPage({ params }: Params) {
@@ -80,88 +47,111 @@ export default async function FrontOfficeDocPage({ params }: Params) {
   const doc = getFrontOfficeDoc(slug);
   if (!doc) notFound();
 
-  const index = frontOfficeDocs.findIndex((d) => d.slug === doc.slug);
-  const prev = frontOfficeDocs[index - 1];
-  const next = frontOfficeDocs[index + 1];
+  const docs = getFrontOfficeDocs();
+  const index = docs.findIndex((d) => d.slug === doc.slug);
+  const prev = docs[index - 1];
+  const next = docs[index + 1];
+  const sectionTitle = FRONT_OFFICE_DOC_SECTIONS.find((s) => s.key === doc.section)?.title;
+  // Contents list: the `##` headings. `###` headings stay in the article only.
+  const contents = doc.headings.filter((h) => h.depth === 2);
 
   return (
-    <>
-      <Nav />
-      <main>
-        <FrontOfficeHeader current={FRONT_OFFICE_DOCS_PATH} title={doc.title} lead={doc.summary}>
-          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-            <StatusTag status={doc.status} />
-            <span>
-              Last checked <time dateTime={doc.updated}>{doc.updated}</time>
-            </span>
-          </div>
-        </FrontOfficeHeader>
+    <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_13rem] xl:gap-12">
+      <article className="min-w-0 max-w-2xl">
+        <p className="text-sm font-medium text-muted-foreground">{sectionTitle}</p>
+        <h1 className="mt-2 text-4xl font-bold leading-[1.1] tracking-[-0.035em] text-foreground">
+          {doc.title}
+        </h1>
+        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{doc.description}</p>
 
-        <article className="px-6 pb-24">
-          <div className="mx-auto max-w-5xl">
-            <div className="max-w-2xl space-y-14">
-              {doc.sections.map((section) => (
-                <section key={section.heading}>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-2xl font-bold tracking-[-0.035em] text-foreground">
-                      {section.heading}
-                    </h2>
-                    {section.status && section.status !== doc.status && (
-                      <StatusTag status={section.status} />
-                    )}
-                  </div>
-                  <div className="mt-5 space-y-5">
-                    {section.blocks.map((block, i) => (
-                      <Block key={i} block={block} />
-                    ))}
-                  </div>
-                </section>
-              ))}
+        <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
+          <StatusTag status={doc.status} />
+          <span>
+            Last checked <time dateTime={doc.updated}>{doc.updated}</time>
+          </span>
+          <CopyMarkdownButton markdown={frontOfficeDocMarkdown(doc)} />
+          {/* A plain file, not a page: needs a full load, so <a>. */}
+          <a
+            href={`${fo(`/docs/${doc.slug}`)}.md`}
+            className="font-medium underline underline-offset-4 transition-colors hover:text-primary"
+          >
+            View as markdown
+          </a>
+        </div>
+
+        {/* The markdown is our own file from the repo, turned into HTML at build time. */}
+        <div
+          className="fo-prose mt-10"
+          dangerouslySetInnerHTML={{ __html: renderFrontOfficeDocHtml(doc) }}
+        />
+
+        {doc.form === "marketplace-apply" && (
+          <div id="apply" className="mt-6 scroll-mt-24 rounded-xl border border-border bg-card p-6 sm:p-8">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              The request goes to Formatic for review. Sending it does not list your platform.
+            </p>
+            <div className="mt-6">
+              <MarketplaceApplyForm />
             </div>
-
-            <nav
-              aria-label="More help articles"
-              className="mt-20 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
-            >
-              {prev ? (
-                <Link
-                  href={`${FRONT_OFFICE_DOCS_PATH}/${prev.slug}`}
-                  className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30"
-                >
-                  <span className="text-xs font-medium text-muted-foreground">Previous</span>
-                  <span className="mt-1 block font-semibold text-foreground">{prev.title}</span>
-                </Link>
-              ) : (
-                <Link
-                  href={FRONT_OFFICE_DOCS_PATH}
-                  className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30"
-                >
-                  <span className="text-xs font-medium text-muted-foreground">Back to</span>
-                  <span className="mt-1 block font-semibold text-foreground">All help docs</span>
-                </Link>
-              )}
-              {next ? (
-                <Link
-                  href={`${FRONT_OFFICE_DOCS_PATH}/${next.slug}`}
-                  className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30"
-                >
-                  <span className="text-xs font-medium text-muted-foreground">Next</span>
-                  <span className="mt-1 block font-semibold text-foreground">{next.title}</span>
-                </Link>
-              ) : (
-                <Link
-                  href={FRONT_OFFICE_DOCS_PATH}
-                  className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30"
-                >
-                  <span className="text-xs font-medium text-muted-foreground">Back to</span>
-                  <span className="mt-1 block font-semibold text-foreground">All help docs</span>
-                </Link>
-              )}
-            </nav>
           </div>
-        </article>
-      </main>
-      <Footer />
-    </>
+        )}
+
+        <nav
+          aria-label="Previous and next page"
+          className="mt-16 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
+        >
+          {prev ? (
+            <Link
+              href={fo(`/docs/${prev.slug}`)}
+              className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30"
+            >
+              <span className="text-xs font-medium text-muted-foreground">Previous</span>
+              <span className="mt-1 block font-semibold text-foreground">{prev.title}</span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next && (
+            <Link
+              href={fo(`/docs/${next.slug}`)}
+              className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30 sm:text-right"
+            >
+              <span className="text-xs font-medium text-muted-foreground">Next</span>
+              <span className="mt-1 block font-semibold text-foreground">{next.title}</span>
+            </Link>
+          )}
+        </nav>
+      </article>
+
+      {contents.length > 1 && (
+        <aside className="hidden xl:block">
+          <nav aria-label="On this page" className="sticky top-24">
+            <h2 className="text-sm font-semibold text-foreground">On this page</h2>
+            <ul className="mt-3 space-y-2 border-l border-border text-sm">
+              {contents.map((h) => (
+                <li key={h.id}>
+                  <a
+                    href={`#${h.id}`}
+                    className="-ml-px block border-l border-transparent pl-4 leading-snug text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+              {doc.form === "marketplace-apply" && (
+                <li>
+                  <a
+                    href="#apply"
+                    className="-ml-px block border-l border-transparent pl-4 leading-snug text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+                  >
+                    The request form
+                  </a>
+                </li>
+              )}
+            </ul>
+          </nav>
+        </aside>
+      )}
+    </div>
   );
 }

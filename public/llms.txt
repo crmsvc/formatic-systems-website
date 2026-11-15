@@ -11,7 +11,7 @@ Key facts for AI assistants:
 - Canonical domain: https://formaticsystems.com (formatic.works permanently
   redirects here — both names refer to the same company)
 - The home page is a single page; the sections below are anchors on it. There
-  are also Front Office pages (product page, help docs, developer page), a
+  is also the Front Office site under /front-office (overview and help docs), a
   ReferralPro product page and one standalone Labs preview page
 - Contact: contact@formaticsystems.com, or the contact form on the home page
 - This file is the machine-readable index for the site. Per-page markdown
@@ -24,8 +24,8 @@ AI products and services designed for how businesses actually operate:
 - **Front Office** — It doesn't just answer the phone, it runs the office.
   Calls, texts, booking, lead alerts, and instant answers drawn from your own
   business data, day or night. "Front Office" is a working name. In
-  development and not yet available: details, help docs and a developer
-  page at https://formaticsystems.com/front-office
+  development and not yet available: overview and help docs at
+  https://formaticsystems.com/front-office
 - **ProjectPix** — A simpler, AI-ready jobsite photo app for contractors:
   shoot, tag, mark up, and share job photos. Opens straight to the camera,
   works offline, keeps originals untouched under markup, and gives each
@@ -56,14 +56,14 @@ Some experiments grow into products; most just get to be interesting.
 
 - [Home](https://formaticsystems.com/): hero, What We Build, Formatic Labs,
   and Get in Touch (contact form + email)
-- [Front Office](https://formaticsystems.com/front-office): product page for
-  Front Office (working name; in development, not yet available), with what
-  is built and what is coming
+- [Front Office](https://formaticsystems.com/front-office): the Front Office
+  site (working name; in development, not yet available): what is built and
+  what is coming
 - [Front Office help docs](https://formaticsystems.com/front-office/docs):
-  short articles for business owners
-- [Front Office for developers](https://formaticsystems.com/front-office/developers):
-  how a platform connects through a remote MCP server, and a form to ask
-  for a Marketplace listing
+  short pages for business owners and for developers of other platforms.
+  Each page is also plain markdown at its address plus `.md`; index at
+  https://formaticsystems.com/front-office/llms.txt and full text at
+  https://formaticsystems.com/front-office/llms-full.txt
 - [ReferralPro](https://formaticsystems.com/referralpro): product page for
   the ReferralPro private beta, with the waitlist link
 - [Culture](https://formaticsystems.com/lab/culture): interactive Labs

@@ -1,78 +1,88 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
-import { FrontOfficeHeader, NotLaunchedNote, StatusTag } from "@/components/front-office/section-shell";
-import { frontOfficeDocs } from "@/content/front-office-docs";
-import { FRONT_OFFICE_DOCS_PATH, FRONT_OFFICE_NAME } from "@/lib/front-office";
+import { NotLaunchedNote, StatusTag } from "@/components/front-office/section-shell";
+import { getFrontOfficeDocSections } from "@/lib/front-office-docs";
+import { FRONT_OFFICE_NAME, fo, foUrl } from "@/lib/front-office";
 
-// Help docs index. The list comes from content/front-office-docs/index.ts;
-// see the comment there for how to add an article.
+// Help docs home: every section and its pages. The list comes from the
+// markdown files in content/front-office-docs/ (see lib/front-office-docs.ts
+// for how to add one). Sidebar and search come from the docs layout.
 
-const title = `${FRONT_OFFICE_NAME} help docs | Formatic Systems`;
-const description = `Plain-language help for business owners: how ${FRONT_OFFICE_NAME} answers, who it talks to, what needs your approval, and how your tools connect.`;
+const description = `Help for ${FRONT_OFFICE_NAME}: how it answers, who it talks to, what needs your approval, how your tools connect, and how other platforms connect to it.`;
 
 export const metadata: Metadata = {
-  title,
+  title: "Help docs",
   description,
-  alternates: { canonical: FRONT_OFFICE_DOCS_PATH },
-  openGraph: {
-    title,
-    description,
-    url: `https://formaticsystems.com${FRONT_OFFICE_DOCS_PATH}`,
-    siteName: "Formatic Systems",
-    type: "website",
-  },
+  alternates: { canonical: foUrl("/docs") },
+  openGraph: { title: `${FRONT_OFFICE_NAME} help docs`, description, url: foUrl("/docs") },
 };
 
 export default function FrontOfficeDocsPage() {
+  const sections = getFrontOfficeDocSections();
   return (
     <>
-      <Nav />
-      <main>
-        <FrontOfficeHeader
-          current={FRONT_OFFICE_DOCS_PATH}
-          title="Help docs"
-          lead="Written for the person who owns the business, not the person who builds software. Each article is short and says what works today and what doesn't yet."
-        />
+      <h1 className="text-4xl font-bold tracking-[-0.035em] text-foreground">Help docs</h1>
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        Short pages in plain words. Each one says what works today and what doesn&apos;t yet.
+      </p>
+      <NotLaunchedNote className="mt-8 max-w-2xl" />
 
-        <section className="px-6 pb-32">
-          <div className="mx-auto max-w-5xl">
-            <NotLaunchedNote />
-            <ol className="mt-10 divide-y divide-border border-y border-border">
-              {frontOfficeDocs.map((doc) => (
+      <div className="mt-12 space-y-12">
+        {sections.map((section) => (
+          <section key={section.key}>
+            <h2 className="text-xl font-bold tracking-tight text-foreground">{section.title}</h2>
+            <ul className="mt-4 divide-y divide-border border-y border-border">
+              {section.docs.map((doc) => (
                 <li key={doc.slug}>
                   <Link
-                    href={`${FRONT_OFFICE_DOCS_PATH}/${doc.slug}`}
-                    className="group flex flex-col gap-3 py-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8"
+                    href={fo(`/docs/${doc.slug}`)}
+                    className="group flex flex-col gap-2 py-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8"
                   >
-                    <div className="max-w-2xl">
-                      <h2 className="text-lg font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                    <div className="max-w-xl">
+                      <h3 className="font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
                         {doc.title}
-                      </h2>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        {doc.summary}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                        {doc.description}
                       </p>
                     </div>
                     <StatusTag status={doc.status} />
                   </Link>
                 </li>
               ))}
-            </ol>
-            <p className="mt-8 text-sm text-muted-foreground">
-              Can&apos;t find an answer? Email{" "}
-              <a
-                href="mailto:contact@formaticsystems.com"
-                className="font-medium text-foreground underline underline-offset-4 hover:text-primary"
-              >
-                contact@formaticsystems.com
-              </a>
-              .
-            </p>
-          </div>
-        </section>
-      </main>
-      <Footer />
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <section className="mt-16 max-w-2xl rounded-xl border border-border bg-card p-6">
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">
+          Reading these with an AI assistant
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Every page is also available as plain markdown: add <code>.md</code> to its address, or
+          use &ldquo;Copy as markdown&rdquo; on the page. There is an index of all pages at{" "}
+          <a href={fo("/llms.txt")} className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+            llms.txt
+          </a>{" "}
+          and the full text in one file at{" "}
+          <a href={fo("/llms-full.txt")} className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+            llms-full.txt
+          </a>
+          .
+        </p>
+      </section>
+
+      <p className="mt-8 text-sm text-muted-foreground">
+        Can&apos;t find an answer? Email{" "}
+        <a
+          href="mailto:contact@formaticsystems.com"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-primary"
+        >
+          contact@formaticsystems.com
+        </a>
+        .
+      </p>
     </>
   );
 }

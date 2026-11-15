@@ -22,7 +22,7 @@ const products: Product[] = [
     description:
       "It doesn't just answer the phone — it runs the office. Calls, texts, booking, lead alerts, and instant answers from your own business, day or night.",
     // Not launched: the on-site page explains what is built and what is
-    // coming, with help docs and a developer page. No sign-up.
+    // coming; help docs (with a developer section) are part of that site. No sign-up.
     cta: { label: "See what it does", href: FRONT_OFFICE_PATH },
   },
   {

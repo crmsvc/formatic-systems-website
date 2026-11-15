@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { CheckCircle, AlertCircle } from "lucide-react";
+import { fo } from "@/lib/front-office";
 
 // "Ask to be listed in the Marketplace" form on the Front Office developer
-// page. Posts to /api/front-office/marketplace-apply, which emails the
+// page. Posts to the section's own /api/marketplace-apply route, which emails the
 // request to Formatic for review. Sending a request lists nothing: the copy
 // here must not promise acceptance or a reply time.
 
@@ -28,7 +29,7 @@ export function MarketplaceApplyForm() {
     e.preventDefault();
     setStatus("loading");
     try {
-      const res = await fetch("/api/front-office/marketplace-apply", {
+      const res = await fetch(fo("/api/marketplace-apply"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

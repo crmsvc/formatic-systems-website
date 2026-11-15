@@ -6,6 +6,31 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Changed
+- 2026-11-15 — **Front Office section rebuilt as the product's own site, with GitBook-style help docs**
+  (same branch and pull request; still not on `main`). Replaces the first version from earlier the same day.
+  - **Own site under one path.** `app/front-office/layout.tsx` gives everything under `/front-office` its own
+    navigation and footer (`components/front-office/section-shell.tsx`) instead of the Formatic Systems ones.
+    Every link inside the section is written with `fo("/…")` from `lib/front-office.ts`; moving to its own
+    domain is two constants (`FRONT_OFFICE_ORIGIN`, `FRONT_OFFICE_BASE`) plus copying the folders listed there.
+    The listing-request route moved inside the section: `app/front-office/api/marketplace-apply/route.ts`.
+  - **Help docs are markdown files.** One `.md` file per page in `content/front-office-docs/`, with a few
+    lines at the top (title, description, section, order, status, date). Adding a page is adding a file;
+    `lib/front-office-docs.ts` reads them. The typed article files from the first version were removed.
+  - **Docs behaviour:** left sidebar of sections and pages, an "On this page" contents list, previous/next
+    links, and search across every page (runs in the browser; nothing is sent anywhere).
+  - **AI-ready:** every page is also plain markdown at its address plus `.md`
+    (`app/front-office/docs-md/[file]/route.ts` behind a rewrite in `next.config.ts`), each page has
+    "Copy as markdown" and "View as markdown", and the docs have `/front-office/llms.txt` and
+    `/front-office/llms-full.txt`, generated from the same files. Pages carry a `text/markdown` alternate link.
+  - **Developer pages are a docs section** ("For developers": Connect your platform, Tools that are easy to
+    approve, Marketplace listing). The listing request form sits at the bottom of "Marketplace listing".
+    `/front-office/developers` redirects to the section; the standalone developer page was removed.
+  - New dependency: `marked` (markdown to HTML at build time). Article styles: `.fo-prose` in
+    `app/globals.css`, using the existing colour tokens.
+  **Why:** Johnny, 2026-11-15: treat the section as the product's main site until it moves to its own
+  domain, and make the help docs work the way GitBook's do, "AI ready".
+
 ### Added
 - 2026-11-15 — **Front Office section (first version, on a branch for review; not on `main`).** Three areas,
   linked from the Front Office card on the home page ("See what it does"):

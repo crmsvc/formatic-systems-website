@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { FRONT_OFFICE_NAME } from "@/lib/front-office";
 
 // Receives the "ask to be listed in the Marketplace" form on the Front Office
-// developer page and emails it to Formatic for review. Same Resend pattern as
+// docs page "Marketplace listing" and emails it to Formatic for review. Same Resend pattern as
 // app/api/contact/route.ts, and the same two env values:
 //   RESEND_API_KEY  (required; without it this returns 503 and sends nothing)
 //   CONTACT_EMAIL   (optional; defaults to contact@formaticsystems.com)
