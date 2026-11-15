@@ -6,6 +6,11 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Released
+- 2026-11-15 — **Front Office site merged to `main` and live** at https://formaticsystems.com/front-office
+  (pull request 2, merge commit `50d0703`; Johnny: "merge it"). The entries below dated 2026-11-15 that say
+  "not on `main`" describe the work before this merge. **Why:** Johnny approved the merge.
+
 ### Decided
 - 2026-11-15 — **Marketplace listing requests are review-first** (Johnny: "Yes, review first"). A request
   from another platform is read by a person at Formatic before anything is listed; nothing is automatic.

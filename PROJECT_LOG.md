@@ -3,13 +3,13 @@
 
 ## Current state (one glance)
 - Status: Live marketing site (Next.js + Tailwind v4, Syne font, amber/stone tokens): home page, a static Labs page, a ProjectPix card, and (since 2026-11-08) a ReferralPro card, the temporary `/referralpro` page and `/sitemap.xml`. All on `main` and deployed. Branch `docs/admin-console-spec` merged into `main` 2026-11-08 (docs only).
-- Last session: 2026-11-11 on CC (admin-console go-live; that work lives in formatic-console)
+- Last session: 2026-11-15 on CC (Front Office site built, merged and live)
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
-- **Branch waiting for review (2026-11-15):** `claude/front-office-pages-7ba3a8`, pull request https://github.com/crmsvc/formatic-systems-website/pull/2 against `main`, NOT merged: the Front Office site under `/front-office` (landing page, GitBook-style help docs with a developer section, docs `llms.txt`). Merging deploys it; that is Johnny's call.
-- Next action: Johnny reviews the Front Office pull request (wording, and the judgement calls in the 2026-11-15 session entry); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
+- **Front Office site is live (merged 2026-11-15, Johnny: "merge it"):** https://formaticsystems.com/front-office (landing page, help docs with a developer section, `llms.txt`). Pull request https://github.com/crmsvc/formatic-systems-website/pull/2, merge commit `50d0703`.
+- Next action: send one test through each Front Office form on the live site to confirm email arrives (the listing request form at /front-office/docs/marketplace-listing and the "tell me when it's ready" form); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
 ## Open items / decisions pending
-- [ ] **Front Office pages: Johnny's review and merge** (branch `claude/front-office-pages-7ba3a8`). Decisions for him: (1) DECIDED by Johnny 2026-11-15, "Yes, review first": a platform that asks for a Marketplace listing is listed only after his review, as built; (2) the Front Office build spec says its public site never shows the codename, yet this site shows "Front Office" on the card and now on three pages, so either accept that for now or give a public name (one line in `lib/front-office.ts`, plus the Front Office lines in `public/llms.txt`; the route folder `app/front-office/` would need a rename and a redirect); (3) confirm `RESEND_API_KEY` is set for Vercel Preview as well as Production, or the two forms only send on production.
+- [ ] **Front Office site: merged and live 2026-11-15.** Left to do: (1) a real email send from the two forms has never been tested: send one test request through each on the live site; (2) the name is still the working name "Front Office" (Johnny: may keep it); a rename is one line in `lib/front-office.ts` plus the Front Office lines in `public/llms.txt`; (3) the light theme was not looked at. Listing requests are review-first (decided).
 - [ ] Front Office help docs were checked against the Front Office build as of 2026-11-15 (Phases 0 to 5 built, on sample data). When a phase lands there, update the status tags: the features in `app/front-office/page.tsx` and the `status:` line at the top of each file under `content/front-office-docs/`.
 - [ ] ReferralPro is a **working name**. To rename, edit `lib/referralpro.ts` (card, page, metadata, sitemap read from it) and the ReferralPro lines in `public/llms.txt`. When it gets its own domain, point the card CTA there and 301 `/referralpro` to it.
 - **Formatic Admin Console has moved out of this repo (2026-10-27).** The work lives in `formatic-labs/formatic-console`, locally at `C:\Users\John Torres\Documents\GitHub\formatic-console`; read its PROJECT_LOG. The v1 draft here (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`) is superseded and carries a banner.
@@ -28,6 +28,12 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-15 (merge) · CC · Claude + Johnny
+- **Done:** Johnny said "merge it". Pull request https://github.com/crmsvc/formatic-systems-website/pull/2 merged into `main` (merge commit `50d0703`); all three checks were green and there were no review comments. Production deployed.
+- **Verified live:** https://formaticsystems.com/front-office, `/front-office/docs`, all eight docs pages, `/front-office/docs/<file name>.md` (served as `text/markdown`, starts with the YAML fields), `/front-office/llms.txt`, `/front-office/llms-full.txt` all return 200; `/front-office/developers` redirects to the docs; the home card links to `/front-office`; the listing route answers 400 to an empty request. Two addresses returned 404 for under a minute while the deploy rolled out, then 200.
+- **Not verified:** a real email send from either form (an empty request was the only thing sent; whether `RESEND_API_KEY` reaches the new route in production is unproven until a real request is sent); the light theme.
+- **Docs created/moved:** none. Branch `claude/front-office-pages-7ba3a8` and its worktree still exist (fully merged; can be removed).
+- **Next:** send one test through each form on the live site and confirm the email arrives.
 ### 2026-11-15 (decision) · CC · Claude + Johnny
 - **Decision (Johnny, in this session):** "Yes, review first". A platform that asks for a Marketplace listing is listed only after a person at Formatic reviews the request. Nothing is listed automatically. The site was already built this way, so no page or code changed; the open item and judgement call 1 are marked decided.
 - **Docs created/moved:** none.
