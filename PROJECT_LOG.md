@@ -28,6 +28,12 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-15 (form test) · CC · Claude + Johnny
+- **Done:** Johnny said "Yes, send a test". One clearly marked test listing request was sent to the live route `/front-office/api/marketplace-apply`. It failed with 500.
+- **Cause (from the Vercel production log):** Resend answered 403, "This API key is not authorized to send emails from crmsvc.com". Both form routes send from `noreply@crmsvc.com`. So no email arrived, and the home-page contact form and the "tell me when it's ready" form (both use `/api/contact`, same sender, same key) must be failing the same way. Resend lists `formaticsystems.com` as a verified sending domain.
+- **Fix (branch `fix/form-sender-domain`):** both routes now send from `noreply@formaticsystems.com`.
+- **Not verified:** that the key on Vercel is allowed to send from `formaticsystems.com`. That can only be seen by deploying and sending a test again. How long the contact form has been failing is unknown (the log search over 30 days timed out; 7 days showed only today's error, which may just mean nobody used the form).
+- **Next:** merge the fix, then send one test through each form and confirm the email arrives at the `CONTACT_EMAIL` inbox.
 ### 2026-11-15 (merge) · CC · Claude + Johnny
 - **Done:** Johnny said "merge it". Pull request https://github.com/crmsvc/formatic-systems-website/pull/2 merged into `main` (merge commit `50d0703`); all three checks were green and there were no review comments. Production deployed.
 - **Verified live:** https://formaticsystems.com/front-office, `/front-office/docs`, all eight docs pages, `/front-office/docs/<file name>.md` (served as `text/markdown`, starts with the YAML fields), `/front-office/llms.txt`, `/front-office/llms-full.txt` all return 200; `/front-office/developers` redirects to the docs; the home card links to `/front-office`; the listing route answers 400 to an empty request. Two addresses returned 404 for under a minute while the deploy rolled out, then 200.

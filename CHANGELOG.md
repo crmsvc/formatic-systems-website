@@ -6,6 +6,14 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Fixed
+- 2026-11-15 — **Site forms now send from `noreply@formaticsystems.com`** instead of `noreply@crmsvc.com`
+  (`app/api/contact/route.ts`, `app/front-office/api/marketplace-apply/route.ts`). **Why:** a test listing
+  request on the live site failed; the server log showed Resend refusing it: "This API key is not authorized
+  to send emails from crmsvc.com" (403). The home-page contact form and the Front Office "tell me when it's
+  ready" form use the same sender through `/api/contact`, so they were failing the same way.
+  `formaticsystems.com` is a verified sending domain in Resend.
+
 ### Released
 - 2026-11-15 — **Front Office site merged to `main` and live** at https://formaticsystems.com/front-office
   (pull request 2, merge commit `50d0703`; Johnny: "merge it"). The entries below dated 2026-11-15 that say
