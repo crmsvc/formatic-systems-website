@@ -6,6 +6,32 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Added
+- 2026-11-15 — **Front Office section (first version, on a branch for review; not on `main`).** Three areas,
+  linked from the Front Office card on the home page ("See what it does"):
+  - **Product page** `/front-office` (`app/front-office/page.tsx`): what it does for a small service business,
+    twelve features each tagged "Built, in testing" or "Coming", who it's for, what it isn't, and a
+    "Tell me when it's ready" form (`components/front-office/notify-form.tsx`) that posts to the existing
+    `/api/contact`. No prices, dates, customer counts or sign-up.
+  - **Help docs** `/front-office/docs` and `/front-office/docs/[slug]`: five articles for business owners.
+    Each article is one file in `content/front-office-docs/`; to add one, add a file and one line in
+    `content/front-office-docs/index.ts` (the index page, article page, metadata and sitemap read that list).
+  - **Developer page** `/front-office/developers`: how a platform is connected through a remote MCP server
+    (five steps), what makes a tool easy to approve, and an "Ask to be listed" form
+    (`components/front-office/marketplace-apply-form.tsx` → `app/api/front-office/marketplace-apply/route.ts`)
+    that emails a request for review through Resend. Uses the same env values as the contact form
+    (`RESEND_API_KEY`, optional `CONTACT_EMAIL`); without the key it returns 503, sends nothing, and the form
+    tells the visitor to email instead. No endpoint addresses are published.
+  - `lib/front-office.ts` holds the name (a codename), paths, summary and status labels, so a rename is one line.
+  - Sitemap rows for the new pages; Front Office entries in `public/llms.txt`.
+  **Why:** Johnny, 2026-11-14: host the Front Office pages on formaticsystems.com for now, starting with
+  features, help docs and a developer page where other platforms can ask to be listed. Public-tier content
+  only; anything not built is marked "Coming".
+
+### Changed
+- 2026-11-15 — The Front Office card on the home page reads its title from `lib/front-office.ts` and now has
+  a link to `/front-office`. **Why:** the card had no destination, and the name is a codename.
+
 ### Changed
 - 2026-10-27 — **Admin console spec v1 marked superseded.** Johnny approved it. The approved v2
   and the Phase 1 plan now live in the new `formatic-console` repo

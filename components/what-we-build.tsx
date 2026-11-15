@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Mic, Camera, Gift, Brain, Search, Wrench } from "lucide-react";
+import { FRONT_OFFICE_NAME, FRONT_OFFICE_PATH } from "@/lib/front-office";
 import { REFERRALPRO_NAME, REFERRALPRO_PATH, REFERRALPRO_SUMMARY } from "@/lib/referralpro";
 
 type Product = {
@@ -16,9 +17,13 @@ type Product = {
 const products: Product[] = [
   {
     icon: Mic,
-    title: "Front Office",
+    // Codename: the name comes from lib/front-office.ts.
+    title: FRONT_OFFICE_NAME,
     description:
       "It doesn't just answer the phone — it runs the office. Calls, texts, booking, lead alerts, and instant answers from your own business, day or night.",
+    // Not launched: the on-site page explains what is built and what is
+    // coming, with help docs and a developer page. No sign-up.
+    cta: { label: "See what it does", href: FRONT_OFFICE_PATH },
   },
   {
     icon: Camera,
