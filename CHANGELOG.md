@@ -6,6 +6,13 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Verified
+- 2026-11-15 — **Sender fix is live and the listing request form delivers email** (pull request 3, merge
+  commit `4e7dbe9`; Johnny: "Yes, merge and retest"). A marked test request to
+  `/front-office/api/marketplace-apply` returned 200 and Resend shows it delivered from
+  `noreply@formaticsystems.com`. `/api/contact` has the same fix but was not sent a test. **Why:** recorded
+  so the earlier "not verified" notes about the forms are closed for the listing form.
+
 ### Fixed
 - 2026-11-15 — **Site forms now send from `noreply@formaticsystems.com`** instead of `noreply@crmsvc.com`
   (`app/api/contact/route.ts`, `app/front-office/api/marketplace-apply/route.ts`). **Why:** a test listing
