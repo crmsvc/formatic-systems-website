@@ -24,7 +24,10 @@ export async function POST(request: Request) {
     const resend = new Resend(apiKey);
 
     const { data, error: sendError } = await resend.emails.send({
-      from: "Formatic Systems <noreply@crmsvc.com>",
+      // Sender must be on a domain the site's Resend key may send from. The
+      // key on Vercel is refused for crmsvc.com (403, seen 2026-11-15), so
+      // the site sends from its own domain, which is verified in Resend.
+      from: "Formatic Systems <noreply@formaticsystems.com>",
       to: process.env.CONTACT_EMAIL || "contact@formaticsystems.com",
       replyTo: email,
       subject: `New contact from ${name}`,
