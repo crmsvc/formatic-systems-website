@@ -6,10 +6,10 @@
 - Last session: 2026-11-15 on CC (Front Office site built, merged and live)
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
 - **Front Office site is live (merged 2026-11-15, Johnny: "merge it"):** https://formaticsystems.com/front-office (landing page, help docs with a developer section, `llms.txt`). Pull request https://github.com/crmsvc/formatic-systems-website/pull/2, merge commit `50d0703`.
-- Next action: send one test through each Front Office form on the live site to confirm email arrives (the listing request form at /front-office/docs/marketplace-listing and the "tell me when it's ready" form); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
+- Next action: send one test through `/api/contact` (home contact form and the Front Office "tell me when it's ready" form) to confirm it delivers too; the listing request form is confirmed working (2026-11-15); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
 ## Open items / decisions pending
-- [ ] **Front Office site: merged and live 2026-11-15.** Left to do: (1) a real email send from the two forms has never been tested: send one test request through each on the live site; (2) the name is still the working name "Front Office" (Johnny: may keep it); a rename is one line in `lib/front-office.ts` plus the Front Office lines in `public/llms.txt`; (3) the light theme was not looked at. Listing requests are review-first (decided).
+- [ ] **Front Office site: merged and live 2026-11-15.** Left to do: (1) the listing request form is confirmed delivering email (2026-11-15, after the sender fix); `/api/contact` (home contact form and the "tell me when it's ready" form) has the same fix but has not been sent a test; (2) the name is still the working name "Front Office" (Johnny: may keep it); a rename is one line in `lib/front-office.ts` plus the Front Office lines in `public/llms.txt`; (3) the light theme was not looked at. Listing requests are review-first (decided).
 - [ ] Front Office help docs were checked against the Front Office build as of 2026-11-15 (Phases 0 to 5 built, on sample data). When a phase lands there, update the status tags: the features in `app/front-office/page.tsx` and the `status:` line at the top of each file under `content/front-office-docs/`.
 - [ ] ReferralPro is a **working name**. To rename, edit `lib/referralpro.ts` (card, page, metadata, sitemap read from it) and the ReferralPro lines in `public/llms.txt`. When it gets its own domain, point the card CTA there and 301 `/referralpro` to it.
 - **Formatic Admin Console has moved out of this repo (2026-10-27).** The work lives in `formatic-labs/formatic-console`, locally at `C:\Users\John Torres\Documents\GitHub\formatic-console`; read its PROJECT_LOG. The v1 draft here (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`) is superseded and carries a banner.
@@ -28,6 +28,13 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-15 (sender fix live) · CC · Claude + Johnny
+- **Done:** Johnny said "Yes, merge and retest". Pull request https://github.com/crmsvc/formatic-systems-website/pull/3 merged into `main` (merge commit `4e7dbe9`); checks green, Codex review had no findings. Production deployed.
+- **Verified:** one marked test listing request sent to the live route `/front-office/api/marketplace-apply` returned 200. Resend lists the email as **delivered** (subject "Front Office Marketplace request: TEST - please ignore (site form check)"), sent from `noreply@formaticsystems.com`. No errors in the Vercel production log. So the key on Vercel may send from `formaticsystems.com`; no key change is needed.
+- **Found:** `CONTACT_EMAIL` on Vercel points at the CRM Services leads inbox, so Front Office listing requests and Formatic contact-form messages land there. Johnny's call whether that stays.
+- **Not verified:** `/api/contact` (home contact form and the "tell me when it's ready" form). It has the same sender fix and the same key but no test was sent through it. The light theme.
+- **Docs created/moved:** none. Branches `fix/form-sender-domain` and `claude/front-office-pages-7ba3a8` are fully merged; the worktree still exists.
+- **Next:** send one test through `/api/contact`; decide where site form email should go.
 ### 2026-11-15 (form test) · CC · Claude + Johnny
 - **Done:** Johnny said "Yes, send a test". One clearly marked test listing request was sent to the live route `/front-office/api/marketplace-apply`. It failed with 500.
 - **Cause (from the Vercel production log):** Resend answered 403, "This API key is not authorized to send emails from crmsvc.com". Both form routes send from `noreply@crmsvc.com`. So no email arrived, and the home-page contact form and the "tell me when it's ready" form (both use `/api/contact`, same sender, same key) must be failing the same way. Resend lists `formaticsystems.com` as a verified sending domain.
