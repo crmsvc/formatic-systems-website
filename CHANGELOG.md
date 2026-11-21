@@ -6,6 +6,11 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Changed
+- 2026-11-21 — **`PROJECT_LOG.md` now records the `AGENTS.md` addition** (session entry, an open item for
+  pull request 5, and a pointer under "Where everything lives"). **Why:** the pull request review pointed
+  out that the repo rule "update the log before you stop" had not been followed for this change.
+
 ### Added
 - 2026-11-17 — **`AGENTS.md` added, with the SEO section corrected** (Johnny: "fix the SEO section and
   commit it"). The file was an untracked copy of `CLAUDE.md` with "claude" swapped for "Codex", which made
