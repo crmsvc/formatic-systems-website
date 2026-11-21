@@ -6,6 +6,20 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Changed
+- 2026-11-21 — **`PROJECT_LOG.md` now records the `AGENTS.md` addition** (session entry, an open item for
+  pull request 5, and a pointer under "Where everything lives"). **Why:** the pull request review pointed
+  out that the repo rule "update the log before you stop" had not been followed for this change.
+
+### Added
+- 2026-11-17 — **`AGENTS.md` added, with the SEO section corrected** (Johnny: "fix the SEO section and
+  commit it"). The file was an untracked copy of `CLAUDE.md` with "claude" swapped for "Codex", which made
+  the SEO section point at a "Codex-seo" plugin, `.Codex/settings.json` and `~/.Codex/plugins/`, none of
+  which exist. It now names the real plugin (claude-seo, enabled in `.claude/settings.json`) and tells
+  agents that cannot load Claude Code plugins to leave SEO audits to a Claude Code session. The three repo
+  rules above it are unchanged. **Why:** an agent reading the old text would search for tools that are not
+  there.
+
 ### Verified
 - 2026-11-15 — **Sender fix is live and the listing request form delivers email** (pull request 3, merge
   commit `4e7dbe9`; Johnny: "Yes, merge and retest"). A marked test request to
