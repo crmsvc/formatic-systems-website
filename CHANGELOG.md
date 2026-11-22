@@ -6,6 +6,11 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Released
+- 2026-11-21 — **`AGENTS.md` merged to `main`** (pull request 5, merge commit `0664398`; Johnny: "Merge when
+  green"). `PROJECT_LOG.md` updated to say so. **Why:** the log on `main` still described the pull request
+  as open.
+
 ### Changed
 - 2026-11-21 — **`PROJECT_LOG.md` now records the `AGENTS.md` addition** (session entry, an open item for
   pull request 5, and a pointer under "Where everything lives"). **Why:** the pull request review pointed
