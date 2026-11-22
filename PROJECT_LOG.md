@@ -3,7 +3,7 @@
 
 ## Current state (one glance)
 - Status: Live marketing site (Next.js + Tailwind v4, Syne font, amber/stone tokens): home page, a static Labs page, a ProjectPix card, and (since 2026-11-08) a ReferralPro card, the temporary `/referralpro` page and `/sitemap.xml`. All on `main` and deployed. Branch `docs/admin-console-spec` merged into `main` 2026-11-08 (docs only).
-- Last session: 2026-11-21 on CC (`AGENTS.md` added, pull request 5 open, not merged)
+- Last session: 2026-11-21 on CC (`AGENTS.md` added and merged to `main`, pull request 5)
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
 - **Front Office site is live (merged 2026-11-15, Johnny: "merge it"):** https://formaticsystems.com/front-office (landing page, help docs with a developer section, `llms.txt`). Pull request https://github.com/crmsvc/formatic-systems-website/pull/2, merge commit `50d0703`.
 - Next action: send one test through `/api/contact` (home contact form and the Front Office "tell me when it's ready" form) to confirm it delivers too; the listing request form is confirmed working (2026-11-15); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
@@ -13,7 +13,7 @@
 - [ ] Front Office help docs were checked against the Front Office build as of 2026-11-15 (Phases 0 to 5 built, on sample data). When a phase lands there, update the status tags: the features in `app/front-office/page.tsx` and the `status:` line at the top of each file under `content/front-office-docs/`.
 - [ ] ReferralPro is a **working name**. To rename, edit `lib/referralpro.ts` (card, page, metadata, sitemap read from it) and the ReferralPro lines in `public/llms.txt`. When it gets its own domain, point the card CTA there and 301 `/referralpro` to it.
 - **Formatic Admin Console has moved out of this repo (2026-10-27).** The work lives in `formatic-labs/formatic-console`, locally at `C:\Users\John Torres\Documents\GitHub\formatic-console`; read its PROJECT_LOG. The v1 draft here (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`) is superseded and carries a banner.
-- [ ] **`AGENTS.md`: pull request https://github.com/crmsvc/formatic-systems-website/pull/5 is open, not merged** (branch `docs/agents-md-seo-fix`). Until it merges, agents working from `main` do not see the file. Merging is Johnny's call.
+- [ ] `AGENTS.md` SEO hand-off rule (agents that cannot load Claude Code plugins leave SEO audits to a Claude Code session) is Claude's wording; Johnny has not confirmed it. Change `AGENTS.md` if Codex should handle SEO differently.
 - [ ] The ReferralPro session hasn't been told the formaticsystems.com page is live; it may later start its own task to build it. Tell it before that happens.
 - [ ] Turn on GitHub branch protection on `main` requiring the `changelog-check` workflow — Johnny — a GitHub setting, not done from CC.
 - [ ] Hook note: Claude Code worktrees set a per-worktree `core.hooksPath` to the global `~/.githooks`, which overrides the repo's `.githooks`. Both gates enforce CHANGELOG.md, so commits are still gated. The main checkout uses `.githooks` (repo-local config). — info only.
@@ -22,13 +22,19 @@
 ## Where everything lives (kills the "which file / which surface" problem)
 - Roadmap: none yet (no ROADMAP.md)
 - Backlog: this file's Open items
-- Build spec / CLAUDE.md: `CLAUDE.md` (repo) + global `~/.claude/CLAUDE.md`; `AGENTS.md` (repo root, same rules for agents that read it instead of `CLAUDE.md`, such as Codex; on `main` only once pull request 5 merges)
+- Build spec / CLAUDE.md: `CLAUDE.md` (repo) + global `~/.claude/CLAUDE.md`; `AGENTS.md` (repo root, same rules for agents that read it instead of `CLAUDE.md`, such as Codex; on `main` since 2026-11-21)
 - Design docs: `guides/ui-ux-modernization-blueprint.md`, `guides/ui-ux-modernization-playbook.md`; AI subagent playbook `docs/AI-SUBAGENT-PLAYBOOK.md`
 - Front Office site (own layout under one path): name, domain, base path and the `fo()` link helper `lib/front-office.ts` (steps to move it to its own domain are in that file's header); layout `app/front-office/layout.tsx`; landing page `app/front-office/page.tsx`; help docs `app/front-office/docs/` (`layout.tsx` sidebar, `page.tsx` home, `[slug]/page.tsx` article); help pages as markdown `content/front-office-docs/*.md` (add a file to add a page; the one source of truth, to be loaded later into Front Office's public knowledge store), read and rule-checked by `lib/front-office-docs.ts` (field list and rules in its header); plain-markdown copies `app/front-office/docs-md/[file]/route.ts` (rewrite in `next.config.ts`); `app/front-office/llms.txt/` and `llms-full.txt/`; nav, footer, status tag `components/front-office/section-shell.tsx`; sidebar and search `components/front-office/docs-sidebar.tsx`; forms `components/front-office/`; listing-request email route `app/front-office/api/marketplace-apply/route.ts`
 - Product cards: `components/what-we-build.tsx`; ReferralPro page `app/referralpro/page.tsx` + name/links `lib/referralpro.ts`; sitemap `app/sitemap.ts`; Labs section: `components/philosophy.tsx`; AI index: `public/llms.txt`
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-21 (AGENTS.md merged) · CC · Claude + Johnny
+- **Done:** Johnny said "Merge when green". Pull request https://github.com/crmsvc/formatic-systems-website/pull/5 merged into `main` (merge commit `0664398`); all three checks were green on `d9b70ae` and the one Codex review thread (asking for this log to record the change) was answered and resolved. `AGENTS.md` is on `main`.
+- **Supersedes:** the entry below says pull request 5 is not merged; that was true when it was written.
+- **Not verified:** the production deploy the merge triggered (docs only, no site change expected).
+- **Docs created/moved:** none. Branch `docs/agents-md-seo-fix` is fully merged and still exists locally and on GitHub.
+- **Next:** send one test through `/api/contact`; decide where site form email should go.
 ### 2026-11-21 (AGENTS.md) · CC · Claude + Johnny
 - **Done:** `AGENTS.md` added at the repo root (commit `a99c728`, written 2026-11-17 on Johnny's "fix the SEO section and commit it"; pushed and pull request https://github.com/crmsvc/formatic-systems-website/pull/5 opened 2026-11-21 on his "Push and open PR"). It carries the same three repo rules as `CLAUDE.md`.
 - **SEO section corrected:** the earlier untracked copy came from a find-and-replace and named a "Codex-seo" plugin and a `.Codex/` folder; neither exists. It now names the real plugin, claude-seo, enabled in `.claude/settings.json`.
