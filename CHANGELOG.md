@@ -6,6 +6,12 @@ Earlier history (Feb–Oct 2026) lives in `git log`; this file starts at the Sec
 
 ## [Unreleased]
 
+### Verified
+- 2026-11-25 — **`/api/contact` delivers email** (Johnny: "Yes, send test"). A marked test message to the
+  live route returned 200 and Resend shows it delivered from `noreply@formaticsystems.com`. This is the route
+  behind the home contact form and the Front Office "tell me when it's ready" form. **Why:** it was the last
+  form route not tested since the sender fix; both are now confirmed.
+
 ### Released
 - 2026-11-21 — **`AGENTS.md` merged to `main`** (pull request 5, merge commit `0664398`; Johnny: "Merge when
   green"). `PROJECT_LOG.md` updated to say so. **Why:** the log on `main` still described the pull request
