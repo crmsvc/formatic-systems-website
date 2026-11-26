@@ -3,13 +3,13 @@
 
 ## Current state (one glance)
 - Status: Live marketing site (Next.js + Tailwind v4, Syne font, amber/stone tokens): home page, a static Labs page, a ProjectPix card, and (since 2026-11-08) a ReferralPro card, the temporary `/referralpro` page and `/sitemap.xml`. All on `main` and deployed. Branch `docs/admin-console-spec` merged into `main` 2026-11-08 (docs only).
-- Last session: 2026-11-21 on CC (`AGENTS.md` added and merged to `main`, pull request 5)
+- Last session: 2026-11-25 on CC (`/api/contact` test sent and delivered; both form routes now confirmed)
 - Live URLs / key IDs: https://formaticsystems.com (Vercel, auto-deploys `main`); https://formaticsystems.com/referralpro; Labs page https://formaticsystems.com/lab/culture (`public/lab/culture.html`); GitHub `crmsvc/formatic-systems-website`
 - **Front Office site is live (merged 2026-11-15, Johnny: "merge it"):** https://formaticsystems.com/front-office (landing page, help docs with a developer section, `llms.txt`). Pull request https://github.com/crmsvc/formatic-systems-website/pull/2, merge commit `50d0703`.
-- Next action: send one test through `/api/contact` (home contact form and the Front Office "tell me when it's ready" form) to confirm it delivers too; the listing request form is confirmed working (2026-11-15); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
+- Next action: decide where site form email should go (it lands in the CRM Services leads inbox); both form routes are confirmed delivering (`/front-office/api/marketplace-apply` 2026-11-15, `/api/contact` 2026-11-25); tell the ReferralPro session the formaticsystems.com page is live (avoid a duplicate build); later, swap the ReferralPro name/domain when decided.
 
 ## Open items / decisions pending
-- [ ] **Front Office site: merged and live 2026-11-15.** Left to do: (1) the listing request form is confirmed delivering email (2026-11-15, after the sender fix); `/api/contact` (home contact form and the "tell me when it's ready" form) has the same fix but has not been sent a test; (2) the name is still the working name "Front Office" (Johnny: may keep it); a rename is one line in `lib/front-office.ts` plus the Front Office lines in `public/llms.txt`; (3) the light theme was not looked at. Listing requests are review-first (decided).
+- [ ] **Front Office site: merged and live 2026-11-15.** Left to do: (1) done: both form routes are confirmed delivering email, the listing request form on 2026-11-15 and `/api/contact` (home contact form and the "tell me when it's ready" form) on 2026-11-25; the forms themselves were not clicked through in a browser; (2) the name is still the working name "Front Office" (Johnny: may keep it); a rename is one line in `lib/front-office.ts` plus the Front Office lines in `public/llms.txt`; (3) the light theme was not looked at. Listing requests are review-first (decided).
 - [ ] Front Office help docs were checked against the Front Office build as of 2026-11-15 (Phases 0 to 5 built, on sample data). When a phase lands there, update the status tags: the features in `app/front-office/page.tsx` and the `status:` line at the top of each file under `content/front-office-docs/`.
 - [ ] ReferralPro is a **working name**. To rename, edit `lib/referralpro.ts` (card, page, metadata, sitemap read from it) and the ReferralPro lines in `public/llms.txt`. When it gets its own domain, point the card CTA there and 301 `/referralpro` to it.
 - **Formatic Admin Console has moved out of this repo (2026-10-27).** The work lives in `formatic-labs/formatic-console`, locally at `C:\Users\John Torres\Documents\GitHub\formatic-console`; read its PROJECT_LOG. The v1 draft here (`docs/superpowers/specs/2026-10-26-formatic-admin-console-design-v1.md`) is superseded and carries a banner.
@@ -29,6 +29,13 @@
 - Handoffs in: `G:\My Drive\muse-deliverables\Formatic\CC-HANDOFF-*.md`
 
 ## Session log (newest first — never delete, only prepend)
+### 2026-11-25 (contact form test) · CC · Claude + Johnny
+- **Done:** Johnny said "Yes, send test". One marked test message was posted to the live route `/api/contact` (name "TEST - please ignore (site form check)", reply address `test@example.com`). It returned 200.
+- **Verified:** Resend lists the email as **delivered** (subject "New contact from TEST - please ignore (site form check)", sent 2026-11-26 07:54 UTC), to the address in `CONTACT_EMAIL`. So the sender fix from pull request 3 works on this route too. Both forms that use it (home contact form `components/contact.tsx`, Front Office "tell me when it's ready" form `components/front-office/notify-form.tsx`) post the same three fields the test used.
+- **Also checked:** no branch is waiting to be merged; no open pull requests. `feat/projectpix-on-site-2026-10-25` holds one stale log-only commit that conflicts with this file and should not be merged; `backup/pre-migration-2026-10-10` is a backup.
+- **Not verified:** the two forms clicked through in a browser (the route was called directly); the light theme on the Front Office pages; "copy as markdown" on the docs pages.
+- **Docs created/moved:** none.
+- **Next:** Johnny decides where site form email should go; `CONTACT_EMAIL` on Vercel points at the CRM Services leads inbox.
 ### 2026-11-21 (AGENTS.md merged) · CC · Claude + Johnny
 - **Done:** Johnny said "Merge when green". Pull request https://github.com/crmsvc/formatic-systems-website/pull/5 merged into `main` (merge commit `0664398`); all three checks were green on `d9b70ae` and the one Codex review thread (asking for this log to record the change) was answered and resolved. `AGENTS.md` is on `main`.
 - **Supersedes:** the entry below says pull request 5 is not merged; that was true when it was written.
